@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Products — SJ Corporation</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--c1:#0f1923;--c2:#162130;--c3:#1e2f42;--acc:#ff6b2b;--txt:#e2eaf5;--txt2:#8ba3c0;--txt3:#4d6a87;--wht:#fff;--brd:rgba(255,255,255,.07);--r8:8px;--r12:12px;--r16:16px;--sh:0 8px 32px rgba(0,0,0,.3)}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--c1);color:var(--txt);overflow-x:hidden}
+nav{position:sticky;top:0;z-index:999;height:64px;background:rgba(15,25,35,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:38px;height:38px;background:var(--acc);border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff}
+.logo-name{font-size:1.05rem;font-weight:700;color:var(--wht)}
+.logo-name small{display:block;font-size:.62rem;font-weight:500;color:var(--txt2);letter-spacing:.05em;text-transform:uppercase;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{text-decoration:none;color:var(--txt2);font-size:.875rem;font-weight:500;padding:6px 14px;border-radius:var(--r8);transition:all .18s}
+.nav-links a:hover{color:var(--wht);background:rgba(255,255,255,.06)}
+.nav-cta{background:var(--acc)!important;color:#fff!important;font-weight:700!important;display:inline-flex;align-items:center;gap:6px}
+.nav-cta:hover{background:#e55a20!important}
+.nav-badge{background:rgba(255,255,255,.22);font-size:.65rem;font-weight:800;min-width:18px;height:18px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.page-top{background:linear-gradient(135deg,var(--c2),var(--c3));border-bottom:1px solid var(--brd);padding:48px 24px 36px;position:relative;overflow:hidden}
+.page-top::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(255,107,43,.1),transparent 60%)}
+.page-top-in{max-width:1180px;margin:0 auto;position:relative}
+.breadcrumb{font-size:.8rem;color:var(--txt3);margin-bottom:12px}
+.breadcrumb a{color:var(--acc);text-decoration:none}
+.page-top h1{font-size:2.4rem;font-weight:800;color:var(--wht);letter-spacing:-.04em}
+.page-top h1 span{color:var(--acc)}
+.page-top p{color:var(--txt2);margin-top:6px}
+main{max-width:1180px;margin:0 auto;padding:32px 24px 64px}
+.filter-bar{background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16);padding:16px 20px;margin-bottom:28px;display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.filter-lbl{font-size:.7rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--txt3);margin-right:4px}
+.fbtn{padding:6px 16px;border-radius:20px;border:1px solid var(--brd);background:transparent;color:var(--txt2);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:600;cursor:pointer;transition:all .18s}
+.fbtn:hover{border-color:var(--acc);color:var(--acc)}
+.fbtn.on{background:var(--acc);border-color:var(--acc);color:#fff;font-weight:700}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));gap:16px}
+.p-card{background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16);overflow:hidden;cursor:pointer;transition:all .22s}
+.p-card:hover{border-color:rgba(255,107,43,.35);box-shadow:var(--sh);transform:translateY(-5px)}
+.p-thumb{height:190px;background:linear-gradient(135deg,var(--c3),var(--c1));display:flex;align-items:center;justify-content:center;font-size:5.5rem;position:relative;overflow:hidden}
+.p-thumb img{width:100%;height:100%;object-fit:cover}
+.p-badge{position:absolute;top:10px;right:10px;background:var(--acc);color:#fff;font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:12px}
+.p-body{padding:18px}
+.p-cat{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--acc);margin-bottom:5px}
+.p-name{font-size:.93rem;font-weight:700;color:var(--wht);line-height:1.35;margin-bottom:6px}
+.p-desc{font-size:.8rem;color:var(--txt2);line-height:1.55;margin-bottom:14px}
+.p-foot{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
+.p-price{font-size:1.45rem;font-weight:800;color:var(--acc);letter-spacing:-.04em;line-height:1}
+.p-from{font-size:.67rem;color:var(--txt3);margin-bottom:1px}
+.p-mrp{font-size:.78rem;color:var(--txt3);text-decoration:line-through}
+.p-acts{display:flex;gap:6px}
+.pb{flex:1;padding:8px 10px;border-radius:var(--r8);font-family:'Plus Jakarta Sans',sans-serif;font-size:.8rem;font-weight:700;text-align:center;cursor:pointer;text-decoration:none;display:inline-block;transition:all .18s;border:none}
+.pb-out{background:rgba(255,255,255,.05);border:1px solid var(--brd);color:var(--txt2)}
+.pb-out:hover{border-color:var(--acc);color:var(--acc)}
+.pb-acc{background:var(--acc);color:#fff}
+.pb-acc:hover{background:#e55a20}
+.empty{grid-column:1/-1;text-align:center;padding:64px 24px;color:var(--txt2)}
+footer{background:var(--c1);border-top:1px solid var(--brd);padding:20px 24px;text-align:center}
+footer p{color:var(--txt3);font-size:.82rem}
+footer a{color:var(--acc);text-decoration:none}
+.wa{position:fixed;bottom:24px;right:24px;z-index:800;width:54px;height:54px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:1.55rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:wap 2.5s ease-in-out infinite}
+@keyframes wap{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 32px rgba(37,211,102,.7)}}
+.toast{position:fixed;top:16px;right:16px;z-index:9999;background:var(--c3);color:var(--wht);padding:12px 18px;border-radius:var(--r12);font-size:.85rem;font-weight:600;border-left:3px solid var(--acc);box-shadow:var(--sh);animation:tin .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@media(max-width:640px){.nav-links a:not(.nav-cta){display:none}.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="logo"><div class="logo-sq">SJ</div><div class="logo-name">SJ Corporation<small>Packing Solutions</small></div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="cart.html" class="nav-cta">🛒 Cart <span class="nav-badge" id="cc">0</span></a>
+    </div>
+  </div>
+</nav>
+<div class="page-top">
+  <div class="page-top-in">
+    <div class="breadcrumb"><a href="index.html">Home</a> / Products</div>
+    <h1>Our <span>Products</span></h1>
+    <p>Premium packing materials — competitive bulk pricing for every business</p>
+  </div>
+</div>
+<main>
+  <div class="filter-bar">
+    <span class="filter-lbl">Filter:</span>
+    <button class="fbtn on" onclick="filt('All',this)">All Products</button>
+    <button class="fbtn" onclick="filt('Adhesive Tapes',this)">Adhesive Tapes</button>
+    <button class="fbtn" onclick="filt('Bubble Wraps',this)">Bubble Wraps</button>
+    <button class="fbtn" onclick="filt('Stretch Films',this)">Stretch Films</button>
+    <button class="fbtn" onclick="filt('Carton Packing Materials',this)">Carton Boxes</button>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer><p>© 2026 <strong><a href="index.html">SJ Corporation</a></strong> &nbsp;|&nbsp; jayendra.jsingh@gmail.com &nbsp;|&nbsp; +91 9638988803</p></footer>
+<a href="https://wa.me/919638988803" class="wa" target="_blank">💬</a>
+<script>
+const ALL=[
+  {id:'tape-48x65-clear',name:'BOPP Adhesive Tape 48mm × 65m (Clear)',category:'Adhesive Tapes',mrp:50,price:40,icon:'📦',img:'',desc:'High-strength BOPP tape for carton sealing and general packaging.',badge:'Popular'},
+  {id:'tape-48x65-brown',name:'BOPP Adhesive Tape 48mm × 65m (Brown)',category:'Adhesive Tapes',mrp:50,price:40,icon:'📦',img:'',desc:'Brown BOPP tape ideal for secure carton sealing.'},
+  {id:'tape-72x65',name:'BOPP Adhesive Tape 72mm × 65m',category:'Adhesive Tapes',mrp:75,price:65,icon:'📦',img:'',desc:'Extra wide BOPP tape for heavy-duty applications.'},
+  {id:'bubble-1m-100m',name:'Bubble Wrap 1m × 100m',category:'Bubble Wraps',mrp:150,price:130,icon:'🫧',img:'',desc:'Protective bubble wrap for fragile items and shipping.',badge:'Best Seller'},
+  {id:'bubble-wrap-small',name:'Bubble Wrap 0.5m × 50m',category:'Bubble Wraps',mrp:80,price:70,icon:'🫧',img:'',desc:'Compact bubble wrap perfect for small items.'},
+  {id:'stretch-500-23',name:'Stretch Film 500mm × 23µ',category:'Stretch Films',mrp:220,price:190,icon:'📏',img:'',desc:'High-clarity stretch film for pallet wrapping.'},
+  {id:'stretch-300-20',name:'Stretch Film 300mm × 20µ',category:'Stretch Films',mrp:150,price:135,icon:'📏',img:'',desc:'Standard stretch film for general wrapping needs.'},
+  {id:'carton-3ply-10x8x6',name:'Carton Box 3-ply 10×8×6 in',category:'Carton Packing Materials',mrp:18,price:15,icon:'📫',img:'',desc:'Lightweight carton for small shipments.'},
+  {id:'carton-5ply-12x10x8',name:'Carton Box 5-ply 12×10×8 in',category:'Carton Packing Materials',mrp:25,price:20,icon:'📫',img:'',desc:'Durable corrugated carton for shipping and storage.'},
+  {id:'carton-7ply-18x12x10',name:'Carton Box 7-ply 18×12×10 in',category:'Carton Packing Materials',mrp:45,price:38,icon:'📫',img:'',desc:'Heavy-duty carton for large and heavy items.',badge:'New'}
+];
+let cart=JSON.parse(localStorage.getItem('sjcart'))||[];
+function sync(){document.getElementById('cc').textContent=cart.reduce((s,i)=>s+i.qty,0)}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
+function addCart(id,ev){
+  ev.stopPropagation();
+  const p=ALL.find(x=>x.id===id),ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({id:p.id,name:p.name,price:p.price,qty:1,icon:p.icon,img:p.img||''});
+  localStorage.setItem('sjcart',JSON.stringify(cart));sync();toast('Added to cart ✓');
+}
+function render(cat){
+  const list=cat==='All'?ALL:ALL.filter(p=>p.category===cat);
+  document.getElementById('grid').innerHTML=list.length?list.map(p=>`
+    <div class="p-card" onclick="location.href='product.html?id=${p.id}'">
+      <div class="p-thumb">${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy">`:p.icon}${p.badge?`<span class="p-badge">${p.badge}</span>`:''}</div>
+      <div class="p-body">
+        <div class="p-cat">${p.category}</div>
+        <div class="p-name">${p.name}</div>
+        <div class="p-desc">${p.desc}</div>
+        <div class="p-foot"><div><div class="p-from">Bulk from</div><div class="p-price">₹${p.price}</div></div><div class="p-mrp">₹${p.mrp}</div></div>
+        <div class="p-acts"><a href="product.html?id=${p.id}" class="pb pb-out" onclick="event.stopPropagation()">Details</a><button class="pb pb-acc" onclick="addCart('${p.id}',event)">+ Cart</button></div>
+      </div>
+    </div>`).join(''):'<div class="empty">No products found in this category.</div>';
+}
+function filt(cat,btn){document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');render(cat)}
+sync();render('All');
+</script>
+</body>
+</html>

@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SJ Corporation — Premium Packing Solutions</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --c1:#0f1923;--c2:#162130;--c3:#1e2f42;
+  --acc:#ff6b2b;--acc2:#ff8c55;
+  --txt:#e2eaf5;--txt2:#8ba3c0;--txt3:#4d6a87;
+  --wht:#fff;--brd:rgba(255,255,255,.07);
+  --grn:#22c55e;--red:#ef4444;
+  --r8:8px;--r12:12px;--r16:16px;
+  --sh:0 8px 32px rgba(0,0,0,.3);
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--c1);color:var(--txt);overflow-x:hidden;line-height:1.6}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:64px;
+  background:rgba(15,25,35,.93);backdrop-filter:blur(20px);
+  border-bottom:1px solid var(--brd);display:flex;align-items:center}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;
+  display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:38px;height:38px;background:var(--acc);border-radius:10px;
+  display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff}
+.logo-name{font-size:1.05rem;font-weight:700;color:var(--wht)}
+.logo-name small{display:block;font-size:.62rem;font-weight:500;color:var(--txt2);
+  letter-spacing:.05em;text-transform:uppercase;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{text-decoration:none;color:var(--txt2);font-size:.875rem;font-weight:500;
+  padding:6px 14px;border-radius:var(--r8);transition:all .18s}
+.nav-links a:hover{color:var(--wht);background:rgba(255,255,255,.06)}
+.nav-cta{background:var(--acc)!important;color:#fff!important;font-weight:700!important;
+  display:inline-flex;align-items:center;gap:6px}
+.nav-cta:hover{background:#e55a20!important;transform:translateY(-1px)}
+.nav-badge{background:rgba(255,255,255,.22);font-size:.65rem;font-weight:800;
+  min-width:18px;height:18px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;padding:0 4px}
+
+/* ── HERO ── */
+.hero{min-height:100vh;display:flex;align-items:center;
+  padding:80px 24px 48px;position:relative;overflow:hidden;
+  background:linear-gradient(140deg,#0a1520 0%,#111d2a 60%,#0d1a24 100%)}
+.hero-dots{position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.03) 1px,transparent 1px);
+  background-size:30px 30px;pointer-events:none}
+.hero-glow{position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,107,43,.15) 0%,transparent 65%);
+  top:-180px;right:-200px;pointer-events:none}
+.hero-glow2{position:absolute;width:380px;height:380px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,107,43,.07) 0%,transparent 65%);
+  bottom:-40px;left:8%;pointer-events:none}
+.hero-inner{max-width:1180px;margin:0 auto;width:100%;position:relative;z-index:2;
+  display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;
+  background:rgba(255,107,43,.1);border:1px solid rgba(255,107,43,.22);
+  color:var(--acc2);font-size:.72rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;padding:5px 13px;border-radius:20px;margin-bottom:20px}
+.hero-chip span{width:6px;height:6px;border-radius:50%;background:var(--acc);
+  animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.hero h1{font-size:clamp(2.2rem,4.5vw,3.7rem);font-weight:800;line-height:1.06;
+  letter-spacing:-.04em;color:var(--wht);margin-bottom:18px}
+.hero h1 .hl{color:var(--acc)}
+.hero-sub{font-size:1.05rem;color:var(--txt2);line-height:1.75;
+  max-width:480px;margin-bottom:32px}
+.hero-btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;
+  border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.9rem;font-weight:700;cursor:pointer;border:none;
+  text-decoration:none;transition:all .2s;line-height:1}
+.btn-acc{background:var(--acc);color:#fff}
+.btn-acc:hover{background:#e55a20;transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(255,107,43,.4)}
+.btn-ghost{background:rgba(255,255,255,.06);color:var(--txt);
+  border:1px solid var(--brd)}
+.btn-ghost:hover{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.15)}
+.hero-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.h-card{background:rgba(255,255,255,.04);border:1px solid var(--brd);
+  border-radius:var(--r16);padding:20px;cursor:pointer;transition:all .22s}
+.h-card:hover{background:rgba(255,107,43,.07);border-color:rgba(255,107,43,.3);
+  transform:translateY(-4px);box-shadow:0 12px 32px rgba(0,0,0,.3)}
+.h-icon{font-size:2rem;margin-bottom:10px;line-height:1}
+.h-name{font-size:.88rem;font-weight:700;color:var(--wht);margin-bottom:2px}
+.h-sub{font-size:.75rem;color:var(--txt3)}
+.h-price{font-size:1.15rem;font-weight:800;color:var(--acc);margin-top:10px}
+
+/* ── STATS ── */
+.stats{background:var(--c2);border-top:1px solid var(--brd);
+  border-bottom:1px solid var(--brd);padding:28px 24px}
+.stats-in{max-width:1180px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr)}
+.stat{text-align:center;padding:12px;border-right:1px solid var(--brd)}
+.stat:last-child{border-right:none}
+.stat-n{font-size:2.2rem;font-weight:800;color:var(--acc);letter-spacing:-.05em;line-height:1}
+.stat-l{font-size:.8rem;color:var(--txt2);margin-top:4px;font-weight:500}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 24px}
+.sec-alt{background:var(--c2)}
+.sec-in{max-width:1180px;margin:0 auto}
+.eyebrow{font-size:.7rem;font-weight:800;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--acc);margin-bottom:10px;display:block}
+.sec-h2{font-size:clamp(1.8rem,3vw,2.5rem);font-weight:800;
+  letter-spacing:-.04em;line-height:1.15;color:var(--wht);margin-bottom:12px}
+.sec-lead{font-size:.95rem;color:var(--txt2);max-width:500px;line-height:1.7}
+
+/* ── WHY ── */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:16px;margin-top:48px}
+.why-card{background:var(--c3);border:1px solid var(--brd);
+  border-radius:var(--r16);padding:28px;transition:all .22s;
+  position:relative;overflow:hidden}
+.why-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--acc),transparent);
+  transform:scaleX(0);transform-origin:left;transition:transform .3s}
+.why-card:hover{border-color:rgba(255,107,43,.22);
+  box-shadow:0 12px 36px rgba(0,0,0,.3);transform:translateY(-4px)}
+.why-card:hover::after{transform:scaleX(1)}
+.why-ico{width:48px;height:48px;border-radius:12px;
+  background:rgba(255,107,43,.1);border:1px solid rgba(255,107,43,.18);
+  display:grid;place-items:center;font-size:1.4rem;margin-bottom:16px}
+.why-h{font-size:.97rem;font-weight:700;color:var(--wht);margin-bottom:8px}
+.why-p{font-size:.85rem;color:var(--txt2);line-height:1.65}
+
+/* ── PRODUCT GRID ── */
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(265px,1fr));
+  gap:16px;margin-top:48px}
+.p-card{background:var(--c3);border:1px solid var(--brd);
+  border-radius:var(--r16);overflow:hidden;cursor:pointer;transition:all .22s}
+.p-card:hover{border-color:rgba(255,107,43,.35);
+  box-shadow:var(--sh);transform:translateY(-5px)}
+.p-thumb{height:180px;background:linear-gradient(135deg,var(--c2),var(--c1));
+  display:flex;align-items:center;justify-content:center;
+  font-size:5rem;position:relative;overflow:hidden}
+.p-thumb img{width:100%;height:100%;object-fit:cover}
+.p-badge{position:absolute;top:10px;right:10px;background:var(--acc);
+  color:#fff;font-size:.65rem;font-weight:800;padding:3px 9px;border-radius:12px}
+.p-body{padding:18px}
+.p-cat{font-size:.68rem;font-weight:800;text-transform:uppercase;
+  letter-spacing:.1em;color:var(--acc);margin-bottom:5px}
+.p-name{font-size:.93rem;font-weight:700;color:var(--wht);
+  line-height:1.35;margin-bottom:6px}
+.p-desc{font-size:.8rem;color:var(--txt2);line-height:1.55;margin-bottom:14px}
+.p-foot{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
+.p-price{font-size:1.45rem;font-weight:800;color:var(--acc);
+  letter-spacing:-.04em;line-height:1}
+.p-from{font-size:.67rem;color:var(--txt3);margin-bottom:1px}
+.p-mrp{font-size:.78rem;color:var(--txt3);text-decoration:line-through}
+.p-acts{display:flex;gap:6px}
+.pb{flex:1;padding:8px 10px;border-radius:var(--r8);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.8rem;font-weight:700;
+  text-align:center;cursor:pointer;text-decoration:none;
+  display:inline-block;transition:all .18s;border:none}
+.pb-out{background:rgba(255,255,255,.05);border:1px solid var(--brd);color:var(--txt2)}
+.pb-out:hover{border-color:var(--acc);color:var(--acc)}
+.pb-acc{background:var(--acc);color:#fff}
+.pb-acc:hover{background:#e55a20}
+.view-all{text-align:center;margin-top:36px}
+
+/* ── CONTACT SECTION ── */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;margin-top:48px}
+.contact-info{display:flex;flex-direction:column;gap:14px}
+.info-card{display:flex;align-items:center;gap:14px;
+  background:var(--c3);border:1px solid var(--brd);
+  border-radius:14px;padding:16px 18px;transition:border-color .2s}
+.info-card:hover{border-color:rgba(255,107,43,.25)}
+.info-icon{font-size:1.6rem;flex-shrink:0}
+.info-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:.08em;color:var(--txt3);margin-bottom:2px}
+.info-val{font-size:.93rem;font-weight:600;color:var(--txt)}
+.info-val a{color:var(--acc);text-decoration:none}
+.info-val a:hover{text-decoration:underline}
+.contact-form-box{background:var(--c3);border:1px solid var(--brd);
+  border-radius:20px;padding:32px}
+.form-title{font-size:1.1rem;font-weight:800;color:var(--wht);margin-bottom:6px}
+.form-sub{font-size:.85rem;color:var(--txt2);margin-bottom:24px}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:.72rem;font-weight:800;color:var(--txt2);
+  text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.fg input,.fg textarea{width:100%;background:var(--c2);
+  border:1px solid var(--brd);border-radius:var(--r8);
+  padding:10px 14px;color:var(--wht);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;
+  outline:none;transition:border-color .18s;resize:vertical}
+.fg input:focus,.fg textarea:focus{border-color:var(--acc)}
+.fg input::placeholder,.fg textarea::placeholder{color:var(--txt3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err-box{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);
+  border-radius:var(--r8);padding:10px 14px;font-size:.83rem;
+  color:var(--red);margin-bottom:12px;display:none}
+.submit-btn{width:100%;padding:13px;background:var(--acc);color:#fff;
+  border:none;border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:.92rem;font-weight:800;cursor:pointer;transition:all .22s;
+  display:flex;align-items:center;justify-content:center;gap:8px}
+.submit-btn:hover{background:#e55a20}
+.submit-btn:disabled{background:var(--c2);color:var(--txt3);cursor:not-allowed}
+.success-box{text-align:center;padding:24px 0;display:none}
+.success-box .sico{font-size:3.5rem;display:block;margin-bottom:12px}
+.success-box h3{font-size:1.1rem;font-weight:800;color:var(--wht);margin-bottom:8px}
+.success-box p{font-size:.88rem;color:var(--txt2);line-height:1.6}
+
+/* ── CTA BAND ── */
+.cta-band{background:linear-gradient(135deg,#2a1005,#3d1808);
+  border-top:1px solid rgba(255,107,43,.18);
+  border-bottom:1px solid rgba(255,107,43,.18);
+  padding:72px 24px;text-align:center;position:relative;overflow:hidden}
+.cta-band::before{content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 50%,rgba(255,107,43,.1) 0%,transparent 70%)}
+.cta-band h2{font-size:clamp(1.7rem,3.5vw,2.6rem);font-weight:800;
+  color:var(--wht);letter-spacing:-.04em;margin-bottom:12px;position:relative}
+.cta-band p{color:var(--txt2);margin-bottom:28px;position:relative}
+.cta-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;position:relative}
+.btn-wht{background:var(--wht);color:var(--acc);font-weight:800}
+.btn-wht:hover{background:#f0f0f0;transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.btn-brd{background:rgba(255,255,255,.07);color:var(--wht);border:1px solid rgba(255,255,255,.2)}
+.btn-brd:hover{background:rgba(255,255,255,.13)}
+
+/* ── FOOTER ── */
+footer{background:var(--c1);border-top:1px solid var(--brd);padding:56px 24px 24px}
+.foot-in{max-width:1180px;margin:0 auto;
+  display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+  gap:40px;margin-bottom:40px}
+.foot-brand p{font-size:.85rem;color:var(--txt2);line-height:1.7;margin-top:12px}
+.foot-col h5{font-size:.7rem;font-weight:800;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--txt3);margin-bottom:14px}
+.foot-col ul{list-style:none}
+.foot-col li{margin-bottom:8px}
+.foot-col li a{color:var(--txt2);text-decoration:none;font-size:.85rem;transition:color .18s}
+.foot-col li a:hover{color:var(--acc)}
+.foot-col li span{color:var(--txt2);font-size:.85rem}
+.foot-bar{max-width:1180px;margin:0 auto;padding-top:20px;
+  border-top:1px solid var(--brd);
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px}
+.foot-bar p{font-size:.78rem;color:var(--txt3)}
+.foot-bar .hl{color:var(--acc)}
+
+/* ── WA FLOAT ── */
+.wa{position:fixed;bottom:24px;right:24px;z-index:800;
+  width:54px;height:54px;border-radius:50%;background:#25d366;
+  display:grid;place-items:center;font-size:1.55rem;text-decoration:none;
+  box-shadow:0 4px 20px rgba(37,211,102,.4);
+  animation:wap 2.5s ease-in-out infinite;transition:transform .2s}
+.wa:hover{transform:scale(1.1)}
+@keyframes wap{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}
+  50%{box-shadow:0 4px 32px rgba(37,211,102,.7)}}
+
+/* ── TOAST ── */
+.toast{position:fixed;top:16px;right:16px;z-index:9999;
+  background:var(--c3);color:var(--wht);
+  padding:12px 18px;border-radius:var(--r12);font-size:.85rem;font-weight:600;
+  border-left:3px solid var(--acc);box-shadow:var(--sh);
+  animation:tin .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+
+/* ── REVEAL ── */
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+
+/* ── SPINNER ── */
+.spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:960px){
+  .hero-inner{grid-template-columns:1fr;gap:40px}
+  .contact-grid{grid-template-columns:1fr}
+  .foot-in{grid-template-columns:1fr 1fr}
+}
+@media(max-width:640px){
+  .nav-links a:not(.nav-cta){display:none}
+  .hero{padding:88px 20px 40px}
+  .hero h1{font-size:2.1rem}
+  .stats-in{grid-template-columns:1fr 1fr}
+  .stat:nth-child(2){border-right:none}
+  .form-row{grid-template-columns:1fr}
+  .foot-in{grid-template-columns:1fr}
+  .foot-bar{flex-direction:column;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="logo">
+      <div class="logo-sq">SJ</div>
+      <div class="logo-name">SJ Corporation<small>Packing Solutions</small></div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="products.html">Products</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="cart.html" class="nav-cta">🛒 Cart <span class="nav-badge" id="cc">0</span></a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-dots"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-chip"><span></span>India's Most Trusted Packing Partner</div>
+      <h1>Premium Packing<br><span class="hl">Solutions</span> for<br>Every Business</h1>
+      <p class="hero-sub">Adhesive tapes, bubble wraps, stretch films &amp; carton boxes — delivered pan-India with unbeatable bulk pricing.</p>
+      <div class="hero-btns">
+        <a href="products.html" class="btn btn-acc">Browse Products →</a>
+        <a href="#contact" class="btn btn-ghost">Get a Quote</a>
+      </div>
+    </div>
+    <div class="hero-cards">
+      <div class="h-card" onclick="location.href='product.html?id=tape-48x65-clear'">
+        <div class="h-icon">📦</div>
+        <div class="h-name">Adhesive Tapes</div>
+        <div class="h-sub">BOPP &amp; industrial grade</div>
+        <div class="h-price">From ₹40</div>
+      </div>
+      <div class="h-card" onclick="location.href='product.html?id=bubble-1m-100m'">
+        <div class="h-icon">🫧</div>
+        <div class="h-name">Bubble Wraps</div>
+        <div class="h-sub">Fragile item protection</div>
+        <div class="h-price">From ₹130</div>
+      </div>
+      <div class="h-card" onclick="location.href='product.html?id=stretch-500-23'">
+        <div class="h-icon">📏</div>
+        <div class="h-name">Stretch Films</div>
+        <div class="h-sub">Pallet wrapping films</div>
+        <div class="h-price">From ₹190</div>
+      </div>
+      <div class="h-card" onclick="location.href='product.html?id=carton-5ply-12x10x8'">
+        <div class="h-icon">📫</div>
+        <div class="h-name">Carton Boxes</div>
+        <div class="h-sub">3-ply to 7-ply options</div>
+        <div class="h-price">From ₹15</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-in">
+    <div class="stat reveal"><div class="stat-n">500+</div><div class="stat-l">Happy Clients</div></div>
+    <div class="stat reveal" style="transition-delay:.1s"><div class="stat-n">50K+</div><div class="stat-l">Orders Delivered</div></div>
+    <div class="stat reveal" style="transition-delay:.2s"><div class="stat-n">100%</div><div class="stat-l">Quality Assured</div></div>
+    <div class="stat reveal" style="transition-delay:.3s"><div class="stat-n">24/7</div><div class="stat-l">Support Available</div></div>
+  </div>
+</div>
+
+<!-- WHY US -->
+<section class="sec" id="about">
+  <div class="sec-in">
+    <div class="reveal">
+      <span class="eyebrow">Why Choose Us</span>
+      <h2 class="sec-h2">The SJ Corporation Advantage</h2>
+      <p class="sec-lead">Trusted by hundreds of businesses across India for premium packing materials, fast delivery and competitive pricing.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal"><div class="why-ico">💰</div><div class="why-h">Bulk Pricing</div><div class="why-p">Significant savings when you order in volume. Our tiered pricing rewards quantity — the more you buy, the more you save.</div></div>
+      <div class="why-card reveal" style="transition-delay:.08s"><div class="why-ico">🚚</div><div class="why-h">Pan-India Delivery</div><div class="why-p">Fast turnaround from our Gujarat warehouse. We ship to every corner of India with trusted logistics partners.</div></div>
+      <div class="why-card reveal" style="transition-delay:.16s"><div class="why-ico">✅</div><div class="why-h">Quality Guaranteed</div><div class="why-p">Industrial-grade materials tested for adhesion, strength and durability. Every batch meets strict quality standards.</div></div>
+      <div class="why-card reveal" style="transition-delay:.24s"><div class="why-ico">🎯</div><div class="why-h">Custom Solutions</div><div class="why-p">Need a specific size or spec? We build tailored packaging solutions around your exact business requirements.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED PRODUCTS -->
+<section class="sec sec-alt">
+  <div class="sec-in">
+    <div class="reveal">
+      <span class="eyebrow">Our Catalogue</span>
+      <h2 class="sec-h2">Featured Products</h2>
+    </div>
+    <div class="prod-grid" id="feat-grid"></div>
+    <div class="view-all reveal">
+      <a href="products.html" class="btn btn-acc">View All Products →</a>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-band">
+  <h2>Ready to Order in Bulk?</h2>
+  <p>WhatsApp us for instant quotes, custom orders &amp; exclusive bulk deals tailored for your business.</p>
+  <div class="cta-row">
+    <a href="https://wa.me/919638988803" target="_blank" class="btn btn-wht">💬 Chat on WhatsApp</a>
+    <a href="products.html" class="btn btn-brd">Browse Products</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="sec" id="contact">
+  <div class="sec-in">
+    <div class="reveal">
+      <span class="eyebrow">Get In Touch</span>
+      <h2 class="sec-h2">Let's Talk Business</h2>
+      <p class="sec-lead">Need a bulk quote, custom packaging, or want to discuss long-term supply? We respond within 2 hours.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal">
+        <div class="info-card">
+          <span class="info-icon">📞</span>
+          <div><div class="info-lbl">Phone / WhatsApp</div><div class="info-val"><a href="tel:+919638988803">+91 9638988803</a></div></div>
+        </div>
+        <div class="info-card">
+          <span class="info-icon">📧</span>
+          <div><div class="info-lbl">Email</div><div class="info-val"><a href="mailto:jayendra.jsingh@gmail.com">jayendra.jsingh@gmail.com</a></div></div>
+        </div>
+        <div class="info-card">
+          <span class="info-icon">📍</span>
+          <div><div class="info-lbl">Location</div><div class="info-val">Surat, Gujarat, India</div></div>
+        </div>
+        <div class="info-card">
+          <span class="info-icon">🕐</span>
+          <div><div class="info-lbl">Business Hours</div><div class="info-val">Monday–Saturday, 9AM–6PM</div></div>
+        </div>
+      </div>
+      <div class="contact-form-box reveal" style="transition-delay:.1s">
+        <div class="form-title">Send an Enquiry</div>
+        <div class="form-sub">Fill in the form and we'll get back to you within 2 hours on business days.</div>
+        <div id="cf-form">
+          <div class="fg"><label>Full Name *</label><input id="cf-name" type="text" placeholder="Your full name"></div>
+          <div class="fg"><label>Phone Number *</label><input id="cf-phone" type="tel" placeholder="+91 98765 43210"></div>
+          <div class="form-row">
+            <div class="fg"><label>Email</label><input id="cf-email" type="email" placeholder="you@example.com"></div>
+            <div class="fg"><label>Company</label><input id="cf-company" type="text" placeholder="Company name"></div>
+          </div>
+          <div class="fg"><label>Message / Requirement *</label><textarea id="cf-msg" rows="4" placeholder="Tell us what products you need, quantities, delivery location..."></textarea></div>
+          <div class="err-box" id="cf-err"></div>
+          <button class="submit-btn" id="cf-btn" onclick="sendContact()">Send Enquiry →</button>
+        </div>
+        <div class="success-box" id="cf-success">
+          <span class="sico">✅</span>
+          <h3>Enquiry Sent!</h3>
+          <p>Thank you! We've received your message and will contact you within 2 hours on business days.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <div class="foot-brand">
+      <a href="index.html" class="logo">
+        <div class="logo-sq">SJ</div>
+        <div class="logo-name" style="color:var(--wht)">SJ Corporation<small>Packing Solutions</small></div>
+      </a>
+      <p>Leading supplier of premium packing materials across India. Quality products, competitive pricing and excellent customer service.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="products.html">Products</a></li>
+        <li><a href="cart.html">Cart</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Categories</h5>
+      <ul>
+        <li><a href="products.html">Adhesive Tapes</a></li>
+        <li><a href="products.html">Bubble Wraps</a></li>
+        <li><a href="products.html">Stretch Films</a></li>
+        <li><a href="products.html">Carton Boxes</a></li>
+      </ul>
+    </div>
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <ul>
+        <li><span>📧 jayendra.jsingh@gmail.com</span></li>
+        <li><span>📞 +91 9638988803</span></li>
+        <li><span>📍 Surat, Gujarat, India</span></li>
+        <li><span>🕐 Mon–Sat 9AM–6PM</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="foot-bar">
+    <p>© 2026 <span class="hl">SJ Corporation</span>. All rights reserved.</p>
+    <p>Made with ❤️ in Gujarat, India</p>
+  </div>
+</footer>
+
+<a href="https://wa.me/919638988803" class="wa" target="_blank" title="Chat on WhatsApp">💬</a>
+
+<script>
+const FEAT=[
+  {id:'tape-48x65-clear',name:'BOPP Adhesive Tape 48mm × 65m (Clear)',cat:'Adhesive Tapes',price:40,mrp:50,icon:'📦',img:'',desc:'High-strength BOPP tape for carton sealing and general packaging.',badge:'Popular'},
+  {id:'bubble-1m-100m',name:'Bubble Wrap 1m × 100m',cat:'Bubble Wraps',price:130,mrp:150,icon:'🫧',img:'',desc:'Premium protective bubble wrap for fragile items and safe shipping.',badge:'Best Seller'},
+  {id:'stretch-500-23',name:'Stretch Film 500mm × 23µ',cat:'Stretch Films',price:190,mrp:220,icon:'📏',img:'',desc:'High-clarity stretch film for pallet wrapping and load stability.'},
+  {id:'carton-5ply-12x10x8',name:'Carton Box 5-ply 12×10×8 in',cat:'Carton Boxes',price:20,mrp:25,icon:'📫',img:'',desc:'Durable corrugated carton for shipping and heavy-duty storage.'}
+];
+let cart=JSON.parse(localStorage.getItem('sjcart'))||[];
+function sync(){const n=cart.reduce((s,i)=>s+i.qty,0);document.querySelectorAll('#cc').forEach(e=>e.textContent=n)}
+function addCart(id,ev){
+  ev.stopPropagation();
+  const p=FEAT.find(x=>x.id===id),ex=cart.find(x=>x.id===id);
+  if(ex)ex.qty++;else cart.push({id:p.id,name:p.name,price:p.price,qty:1,icon:p.icon,img:p.img||''});
+  localStorage.setItem('sjcart',JSON.stringify(cart));sync();toast('Added to cart ✓');
+}
+function toast(m,ok=true){
+  const t=document.createElement('div');t.className='toast';t.textContent=m;
+  t.style.borderLeftColor=ok?'var(--acc)':'var(--red)';
+  document.body.appendChild(t);setTimeout(()=>t.remove(),2400);
+}
+document.getElementById('feat-grid').innerHTML=FEAT.map(p=>`
+  <div class="p-card" onclick="location.href='product.html?id=${p.id}'">
+    <div class="p-thumb">${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy">`:p.icon}${p.badge?`<span class="p-badge">${p.badge}</span>`:''}</div>
+    <div class="p-body">
+      <div class="p-cat">${p.cat}</div>
+      <div class="p-name">${p.name}</div>
+      <div class="p-desc">${p.desc}</div>
+      <div class="p-foot"><div><div class="p-from">Bulk from</div><div class="p-price">₹${p.price}</div></div><div class="p-mrp">₹${p.mrp}</div></div>
+      <div class="p-acts">
+        <a href="product.html?id=${p.id}" class="pb pb-out" onclick="event.stopPropagation()">Details</a>
+        <button class="pb pb-acc" onclick="addCart('${p.id}',event)">+ Cart</button>
+      </div>
+    </div>
+  </div>`).join('');
+
+async function sendContact(){
+  const name=document.getElementById('cf-name').value.trim();
+  const phone=document.getElementById('cf-phone').value.trim();
+  const email=document.getElementById('cf-email').value.trim();
+  const company=document.getElementById('cf-company').value.trim();
+  const message=document.getElementById('cf-msg').value.trim();
+  const errEl=document.getElementById('cf-err');
+  const btn=document.getElementById('cf-btn');
+  errEl.style.display='none';
+  if(!name||!phone||!message){errEl.textContent='Please fill in Name, Phone and Message.';errEl.style.display='block';return;}
+  btn.disabled=true;btn.innerHTML='<div class="spin"></div> Sending...';
+  try{
+    const r=await fetch('/api/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,email,company,message})});
+    const d=await r.json();
+    if(d.success){document.getElementById('cf-form').style.display='none';document.getElementById('cf-success').style.display='block';}
+    else throw new Error(d.message);
+  }catch{
+    btn.disabled=false;btn.innerHTML='Send Enquiry →';
+    errEl.textContent='Could not send. Please WhatsApp us at +91 9638988803';errEl.style.display='block';
+  }
+}
+
+const obs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in')})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+document.querySelectorAll('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{
+  const t=document.querySelector(a.getAttribute('href'));
+  if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'});}
+}));
+sync();
+</script>
+</body>
+</html>

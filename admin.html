@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — SJ Corporation</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--c1:#0f1923;--c2:#162130;--c3:#1e2f42;--acc:#ff6b2b;--txt:#e2eaf5;--txt2:#8ba3c0;--txt3:#4d6a87;--wht:#fff;--brd:rgba(255,255,255,.07);--grn:#22c55e;--yel:#f59e0b;--red:#ef4444;--r8:8px;--r12:12px;--r16:16px;--sh:0 8px 32px rgba(0,0,0,.3)}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--c1);color:var(--txt);min-height:100vh}
+
+/* LOGIN */
+.login-wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(135deg,var(--c1) 0%,#0d1a26 100%)}
+.login-box{background:var(--c2);border:1px solid var(--brd);border-radius:20px;padding:40px;width:100%;max-width:380px;text-align:center}
+.login-logo{width:56px;height:56px;background:var(--acc);border-radius:14px;display:grid;place-items:center;font-size:1.3rem;font-weight:900;color:#fff;margin:0 auto 16px}
+.login-box h1{font-size:1.4rem;font-weight:800;color:var(--wht);margin-bottom:6px}
+.login-box p{font-size:.85rem;color:var(--txt2);margin-bottom:28px}
+.login-box input{width:100%;background:var(--c3);border:1px solid var(--brd);border-radius:var(--r8);padding:12px 16px;color:var(--wht);font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;outline:none;margin-bottom:12px;transition:border-color .18s}
+.login-box input:focus{border-color:var(--acc)}
+.login-btn{width:100%;padding:13px;background:var(--acc);color:#fff;border:none;border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;transition:all .22s}
+.login-btn:hover{background:#e55a20}
+.login-err{color:var(--red);font-size:.82rem;margin-top:10px;display:none}
+
+/* DASHBOARD */
+.dashboard{display:none}
+.topbar{background:rgba(15,25,35,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.tb-left{display:flex;align-items:center;gap:10px}
+.tb-sq{width:32px;height:32px;background:var(--acc);border-radius:8px;display:grid;place-items:center;font-weight:900;font-size:.8rem;color:#fff}
+.tb-title{font-size:.95rem;font-weight:700;color:var(--wht)}
+.tb-right{display:flex;align-items:center;gap:12px}
+.tb-time{font-size:.78rem;color:var(--txt3)}
+.logout-btn{background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.2);color:var(--red);padding:5px 12px;border-radius:6px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.78rem;font-weight:700;cursor:pointer;transition:all .18s}
+.logout-btn:hover{background:var(--red);color:#fff}
+.body{max-width:1280px;margin:0 auto;padding:28px 24px}
+
+/* STATS */
+.stat-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:28px}
+.sc{background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16);padding:20px 22px}
+.sc-lbl{font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--txt3);margin-bottom:8px}
+.sc-val{font-size:2rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.sc-sub{font-size:.76rem;color:var(--txt3);margin-top:4px}
+
+/* TABS */
+.tabs{display:flex;gap:4px;background:var(--c2);border:1px solid var(--brd);border-radius:var(--r12);padding:4px;width:fit-content;margin-bottom:20px}
+.tab{padding:8px 20px;border-radius:8px;font-size:.85rem;font-weight:700;cursor:pointer;color:var(--txt2);border:none;background:transparent;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s}
+.tab.on{background:var(--acc);color:#fff}
+
+/* TABLE */
+.tbl-box{background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16);overflow:hidden}
+.tbl-hd{padding:16px 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--brd)}
+.tbl-hd h3{font-size:.95rem;font-weight:800;color:var(--wht)}
+.refresh-btn{background:var(--c3);border:1px solid var(--brd);color:var(--txt2);padding:6px 14px;border-radius:8px;font-family:'Plus Jakarta Sans',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;transition:all .18s}
+.refresh-btn:hover{border-color:var(--acc);color:var(--acc)}
+.tbl-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th{background:var(--c3);padding:10px 14px;text-align:left;font-size:.7rem;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
+td{padding:12px 14px;font-size:.84rem;border-bottom:1px solid var(--brd);color:var(--txt2);vertical-align:top}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:rgba(255,255,255,.02)}
+.td-name{color:var(--wht);font-weight:600}
+.td-id{font-size:.74rem;color:var(--acc);font-weight:700;font-family:monospace}
+.td-total{color:var(--acc);font-weight:800;font-size:.95rem;white-space:nowrap}
+
+/* STATUS */
+.status{display:inline-block;padding:3px 9px;border-radius:20px;font-size:.68rem;font-weight:800;letter-spacing:.04em;white-space:nowrap}
+.s-New{background:rgba(245,158,11,.1);color:var(--yel);border:1px solid rgba(245,158,11,.2)}
+.s-Confirmed{background:rgba(34,197,94,.08);color:var(--grn);border:1px solid rgba(34,197,94,.2)}
+.s-Shipped{background:rgba(59,130,246,.08);color:#60a5fa;border:1px solid rgba(59,130,246,.2)}
+.s-Delivered{background:rgba(168,85,247,.08);color:#c084fc;border:1px solid rgba(168,85,247,.2)}
+.s-Cancelled{background:rgba(239,68,68,.07);color:var(--red);border:1px solid rgba(239,68,68,.18)}
+
+/* ACTION BTNS */
+.acts{display:flex;gap:5px;flex-wrap:wrap}
+.ab{padding:4px 9px;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;border:none;font-family:'Plus Jakarta Sans',sans-serif;transition:all .18s;text-decoration:none;display:inline-flex;align-items:center;gap:3px}
+.ab-call{background:rgba(34,197,94,.08);color:var(--grn);border:1px solid rgba(34,197,94,.2)}
+.ab-call:hover{background:var(--grn);color:var(--c1)}
+.ab-status{background:var(--c3);color:var(--txt2);border:1px solid var(--brd)}
+.ab-status:hover{border-color:var(--acc);color:var(--acc)}
+.ab-del{background:rgba(239,68,68,.07);color:var(--red);border:1px solid rgba(239,68,68,.18)}
+.ab-del:hover{background:var(--red);color:#fff}
+.items-list{display:flex;flex-direction:column;gap:2px;margin-top:2px}
+.oi{font-size:.76rem;color:var(--txt3)}
+.oi strong{color:var(--txt2)}
+.empty-tbl{text-align:center;padding:48px;color:var(--txt3);font-size:.9rem}
+
+/* STATUS MODAL */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.75);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .22s}
+.modal-ov.show{opacity:1;pointer-events:all}
+.modal{background:var(--c2);border:1px solid var(--brd);border-radius:16px;padding:28px;width:100%;max-width:360px;transform:translateY(16px);transition:transform .22s}
+.modal-ov.show .modal{transform:none}
+.modal h3{font-size:1.1rem;font-weight:800;color:var(--wht);margin-bottom:6px}
+.modal p{font-size:.85rem;color:var(--txt2);margin-bottom:16px}
+.modal select{width:100%;background:var(--c3);border:1px solid var(--brd);border-radius:var(--r8);padding:10px 14px;color:var(--wht);font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;outline:none;margin-bottom:16px}
+.modal-btns{display:flex;gap:8px}
+.modal-btns button{flex:1;padding:10px;border-radius:var(--r8);font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;border:none;transition:all .18s}
+.m-save{background:var(--acc);color:#fff}
+.m-save:hover{background:#e55a20}
+.m-cancel{background:var(--c3);color:var(--txt2);border:1px solid var(--brd)}
+.m-cancel:hover{border-color:var(--brd)}
+
+.toast{position:fixed;top:16px;right:16px;z-index:9999;background:var(--c3);color:var(--wht);padding:12px 18px;border-radius:var(--r12);font-size:.85rem;font-weight:600;border-left:3px solid var(--acc);box-shadow:var(--sh);animation:tin .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@media(max-width:768px){.body{padding:16px}.stat-cards{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<!-- LOGIN -->
+<div class="login-wrap" id="login-wrap">
+  <div class="login-box">
+    <div class="login-logo">SJ</div>
+    <h1>Admin Dashboard</h1>
+    <p>SJ Corporation — Order Management System</p>
+    <input type="password" id="pw" placeholder="Enter admin password" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="login-btn" onclick="doLogin()">Sign In →</button>
+    <div class="login-err" id="login-err">Incorrect password. Please try again.</div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div class="dashboard" id="dashboard">
+  <div class="topbar">
+    <div class="tb-left">
+      <div class="tb-sq">SJ</div>
+      <span class="tb-title">SJ Corporation — Admin</span>
+    </div>
+    <div class="tb-right">
+      <span class="tb-time" id="tb-time"></span>
+      <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="body">
+    <!-- STAT CARDS -->
+    <div class="stat-cards">
+      <div class="sc"><div class="sc-lbl">Total Orders</div><div class="sc-val" id="st-orders" style="color:var(--acc)">0</div><div class="sc-sub">All time</div></div>
+      <div class="sc"><div class="sc-lbl">Total Revenue</div><div class="sc-val" id="st-rev" style="color:var(--grn)">₹0</div><div class="sc-sub">Excluding cancelled</div></div>
+      <div class="sc"><div class="sc-lbl">New Orders</div><div class="sc-val" id="st-new" style="color:var(--yel)">0</div><div class="sc-sub">Awaiting confirmation</div></div>
+      <div class="sc"><div class="sc-lbl">Enquiries</div><div class="sc-val" id="st-enq" style="color:#60a5fa">0</div><div class="sc-sub">Contact form submissions</div></div>
+    </div>
+
+    <!-- TABS -->
+    <div class="tabs">
+      <button class="tab on" onclick="switchTab('orders',this)">📦 Orders</button>
+      <button class="tab" onclick="switchTab('contacts',this)">📩 Enquiries</button>
+    </div>
+
+    <!-- ORDERS -->
+    <div id="tab-orders">
+      <div class="tbl-box">
+        <div class="tbl-hd"><h3>All Orders</h3><button class="refresh-btn" onclick="loadAll()">↻ Refresh</button></div>
+        <div id="orders-body"><div class="empty-tbl">Loading...</div></div>
+      </div>
+    </div>
+
+    <!-- ENQUIRIES -->
+    <div id="tab-contacts" style="display:none">
+      <div class="tbl-box">
+        <div class="tbl-hd"><h3>Enquiries &amp; Contact Forms</h3><button class="refresh-btn" onclick="loadAll()">↻ Refresh</button></div>
+        <div id="contacts-body"><div class="empty-tbl">Loading...</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS MODAL -->
+<div class="modal-ov" id="status-modal">
+  <div class="modal">
+    <h3>Update Order Status</h3>
+    <p id="modal-lbl">Order</p>
+    <select id="status-sel">
+      <option>New</option>
+      <option>Confirmed</option>
+      <option>Shipped</option>
+      <option>Delivered</option>
+      <option>Cancelled</option>
+    </select>
+    <div class="modal-btns">
+      <button class="m-cancel" onclick="closeSM()">Cancel</button>
+      <button class="m-save" onclick="saveStatus()">Save</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let pw='', allOrders=[], allContacts=[], editId='';
+const inr=n=>'₹'+Number(n).toLocaleString('en-IN');
+const fmtDate=s=>new Date(s).toLocaleString('en-IN',{day:'2-digit',month:'short',year:'numeric',hour:'2-digit',minute:'2-digit'});
+function toast(m,ok=true){const t=document.createElement('div');t.className='toast';t.textContent=m;t.style.borderLeftColor=ok?'var(--acc)':'var(--red)';document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
+
+function doLogin(){
+  pw=document.getElementById('pw').value.trim();if(!pw)return;
+  fetch(`/api/admin/orders?pass=${encodeURIComponent(pw)}`)
+    .then(r=>{if(r.status===401)throw new Error('bad');return r.json()})
+    .then(()=>{
+      document.getElementById('login-wrap').style.display='none';
+      document.getElementById('dashboard').style.display='block';
+      loadAll();setInterval(()=>{if(pw)loadAll()},60000);
+      setInterval(()=>{document.getElementById('tb-time').textContent=new Date().toLocaleTimeString('en-IN')},1000);
+    })
+    .catch(()=>{document.getElementById('login-err').style.display='block'});
+}
+
+async function loadAll(){
+  try{
+    const [oR,cR]=await Promise.all([
+      fetch(`/api/admin/orders?pass=${encodeURIComponent(pw)}`),
+      fetch(`/api/admin/contacts?pass=${encodeURIComponent(pw)}`)
+    ]);
+    allOrders=(await oR.json()).orders||[];
+    allContacts=(await cR.json()).contacts||[];
+    renderStats();renderOrders();renderContacts();
+  }catch{toast('Failed to load data — is the server running?',false)}
+}
+
+function renderStats(){
+  const rev=allOrders.filter(o=>o.status!=='Cancelled').reduce((s,o)=>s+o.total,0);
+  document.getElementById('st-orders').textContent=allOrders.length;
+  document.getElementById('st-rev').textContent=inr(rev);
+  document.getElementById('st-new').textContent=allOrders.filter(o=>o.status==='New').length;
+  document.getElementById('st-enq').textContent=allContacts.length;
+}
+
+function renderOrders(){
+  const el=document.getElementById('orders-body');
+  if(!allOrders.length){el.innerHTML='<div class="empty-tbl">No orders yet. They will appear here when customers place orders.</div>';return}
+  el.innerHTML=`<div class="tbl-scroll"><table>
+    <thead><tr><th>Order ID</th><th>Customer</th><th>Items</th><th>Total</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>${allOrders.map(o=>`
+      <tr>
+        <td><div class="td-id">${o.orderId}</div></td>
+        <td><div class="td-name">${o.customer.name}</div><div style="font-size:.75rem;color:var(--txt3);margin-top:2px">${o.customer.phone}</div>${o.customer.city?`<div style="font-size:.73rem;color:var(--txt3)">${o.customer.city}</div>`:''}</td>
+        <td><div class="items-list">${o.items.map(i=>`<div class="oi"><strong>${i.qty}×</strong> ${i.name.length>32?i.name.slice(0,32)+'…':i.name}</div>`).join('')}</div></td>
+        <td class="td-total">${inr(o.total)}</td>
+        <td><span class="status s-${o.status.replace(' ','')}">${o.status}</span></td>
+        <td style="font-size:.76rem;white-space:nowrap;color:var(--txt3)">${fmtDate(o.createdAt)}</td>
+        <td><div class="acts">
+          <a href="tel:${o.customer.phone}" class="ab ab-call">📞 Call</a>
+          <a href="https://wa.me/${o.customer.phone.replace(/\D/g,'')}" target="_blank" class="ab ab-call">💬 WA</a>
+          <button class="ab ab-status" onclick="openSM('${o.id}','${o.orderId}','${o.status}')">Status</button>
+          <button class="ab ab-del" onclick="delOrder('${o.id}','${o.orderId}')">Del</button>
+        </div></td>
+      </tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function renderContacts(){
+  const el=document.getElementById('contacts-body');
+  if(!allContacts.length){el.innerHTML='<div class="empty-tbl">No enquiries yet. Contact form submissions will appear here.</div>';return}
+  el.innerHTML=`<div class="tbl-scroll"><table>
+    <thead><tr><th>Name</th><th>Phone</th><th>Company</th><th>Message</th><th>Date</th><th>Actions</th></tr></thead>
+    <tbody>${allContacts.map(c=>`
+      <tr>
+        <td><div class="td-name">${c.name}</div>${c.email?`<div style="font-size:.74rem;color:var(--txt3)">${c.email}</div>`:''}</td>
+        <td style="white-space:nowrap">${c.phone}</td>
+        <td>${c.company||'—'}</td>
+        <td style="max-width:260px;font-size:.82rem">${c.message.length>100?c.message.slice(0,100)+'…':c.message}</td>
+        <td style="font-size:.76rem;white-space:nowrap;color:var(--txt3)">${fmtDate(c.createdAt)}</td>
+        <td><div class="acts">
+          <a href="tel:${c.phone}" class="ab ab-call">📞 Call</a>
+          <a href="https://wa.me/${c.phone.replace(/\D/g,'')}" target="_blank" class="ab ab-call">💬 WA</a>
+        </div></td>
+      </tr>`).join('')}
+    </tbody></table></div>`;
+}
+
+function switchTab(tab,btn){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');
+  document.getElementById('tab-orders').style.display=tab==='orders'?'block':'none';
+  document.getElementById('tab-contacts').style.display=tab==='contacts'?'block':'none';
+}
+
+function openSM(id,orderId,status){
+  editId=id;
+  document.getElementById('modal-lbl').textContent='Order: '+orderId;
+  document.getElementById('status-sel').value=status;
+  document.getElementById('status-modal').classList.add('show');
+}
+function closeSM(){document.getElementById('status-modal').classList.remove('show')}
+async function saveStatus(){
+  const status=document.getElementById('status-sel').value;
+  try{
+    const r=await fetch(`/api/admin/orders/${editId}?pass=${encodeURIComponent(pw)}`,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify({status})});
+    if((await r.json()).success){closeSM();loadAll();toast('Status updated → '+status)}
+  }catch{toast('Update failed',false)}
+}
+
+async function delOrder(id,orderId){
+  if(!confirm(`Delete order ${orderId}? This cannot be undone.`))return;
+  try{
+    const r=await fetch(`/api/admin/orders/${id}?pass=${encodeURIComponent(pw)}`,{method:'DELETE'});
+    if((await r.json()).success){loadAll();toast('Order deleted')}
+  }catch{toast('Delete failed',false)}
+}
+
+function logout(){pw='';document.getElementById('dashboard').style.display='none';document.getElementById('login-wrap').style.display='flex';document.getElementById('pw').value='';document.getElementById('login-err').style.display='none'}
+document.getElementById('status-modal').addEventListener('click',function(e){if(e.target===this)closeSM()});
+</script>
+</body>
+</html>

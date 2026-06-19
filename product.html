@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product — SJ Corporation</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--c1:#0f1923;--c2:#162130;--c3:#1e2f42;--acc:#ff6b2b;--txt:#e2eaf5;--txt2:#8ba3c0;--txt3:#4d6a87;--wht:#fff;--brd:rgba(255,255,255,.07);--r8:8px;--r12:12px;--r16:16px;--sh:0 8px 32px rgba(0,0,0,.3)}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--c1);color:var(--txt);overflow-x:hidden;line-height:1.6}
+nav{position:sticky;top:0;z-index:999;height:64px;background:rgba(15,25,35,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:38px;height:38px;background:var(--acc);border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff}
+.logo-name{font-size:1.05rem;font-weight:700;color:var(--wht)}
+.logo-name small{display:block;font-size:.62rem;font-weight:500;color:var(--txt2);letter-spacing:.05em;text-transform:uppercase;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{text-decoration:none;color:var(--txt2);font-size:.875rem;font-weight:500;padding:6px 14px;border-radius:var(--r8);transition:all .18s}
+.nav-links a:hover{color:var(--wht);background:rgba(255,255,255,.06)}
+.nav-cta{background:var(--acc)!important;color:#fff!important;font-weight:700!important;display:inline-flex;align-items:center;gap:6px}
+.nav-cta:hover{background:#e55a20!important}
+.nav-badge{background:rgba(255,255,255,.22);font-size:.65rem;font-weight:800;min-width:18px;height:18px;border-radius:10px;display:flex;align-items:center;justify-content:center;padding:0 4px}
+.breadcrumb{max-width:1180px;margin:20px auto 0;padding:0 24px;font-size:.8rem;color:var(--txt3)}
+.breadcrumb a{color:var(--acc);text-decoration:none}
+main{max-width:1180px;margin:20px auto;padding:0 24px 64px}
+.pd{display:grid;grid-template-columns:1fr 1fr;gap:40px;background:var(--c2);border:1px solid var(--brd);border-radius:20px;padding:36px}
+.pd-left{display:flex;flex-direction:column;gap:16px}
+.main-img{height:360px;background:linear-gradient(135deg,var(--c3),var(--c1));border-radius:var(--r16);border:1px solid var(--brd);display:flex;align-items:center;justify-content:center;font-size:9rem;overflow:hidden}
+.main-img img{width:100%;height:100%;object-fit:cover}
+.trust-pills{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.pill{background:var(--c3);border:1px solid var(--brd);border-radius:var(--r12);padding:10px 14px;display:flex;align-items:center;gap:8px;font-size:.8rem;color:var(--txt2)}
+.pd-right{display:flex;flex-direction:column;gap:20px}
+.pd-cat{font-size:.68rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--acc)}
+.pd-title{font-size:clamp(1.3rem,3vw,1.9rem);font-weight:800;color:var(--wht);letter-spacing:-.03em;line-height:1.2}
+.pd-desc{font-size:.9rem;color:var(--txt2);line-height:1.75}
+.price-box{background:rgba(255,107,43,.07);border:1px solid rgba(255,107,43,.18);border-radius:var(--r16);padding:20px}
+.price-row{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.bulk-p{font-size:2.3rem;font-weight:800;color:var(--acc);letter-spacing:-.05em;line-height:1}
+.orig-p{font-size:1rem;color:var(--txt3);text-decoration:line-through}
+.save-tag{background:var(--acc);color:#fff;font-size:.68rem;font-weight:800;padding:3px 9px;border-radius:12px}
+.p-note{font-size:.75rem;color:var(--txt3);margin-top:6px}
+.specs-box{border:1px solid var(--brd);border-radius:var(--r16);overflow:hidden}
+.specs-hd{background:var(--c3);padding:10px 16px;font-size:.76rem;font-weight:800;letter-spacing:.07em;text-transform:uppercase;color:var(--txt2)}
+.specs-list{list-style:none;padding:12px 16px;display:grid;gap:7px}
+.specs-list li{font-size:.85rem;color:var(--txt2);display:flex;align-items:center;gap:8px}
+.specs-list li::before{content:'✓';color:var(--acc);font-weight:800;flex-shrink:0}
+.bulk-box{border:1px solid var(--brd);border-radius:var(--r16);overflow:hidden}
+.bulk-hd{background:var(--c1);padding:10px 16px;font-size:.8rem;font-weight:700;color:var(--wht);display:flex;align-items:center;gap:6px}
+table{width:100%;border-collapse:collapse}
+th{background:var(--c3);padding:9px 14px;text-align:left;font-size:.72rem;font-weight:700;color:var(--txt3);text-transform:uppercase;letter-spacing:.06em;border-bottom:1px solid var(--brd)}
+td{padding:10px 14px;font-size:.85rem;border-bottom:1px solid var(--brd);color:var(--txt2)}
+tr:last-child td{border-bottom:none}
+.best-row td{background:rgba(255,107,43,.07);color:var(--acc);font-weight:700}
+.qty-wrap{display:flex;align-items:center;gap:14px}
+.qty-lbl{font-size:.88rem;font-weight:700;color:var(--wht)}
+.qty-ctrl{display:flex;align-items:center;border:1px solid var(--brd);border-radius:var(--r12);overflow:hidden}
+.qbtn{width:38px;height:38px;background:var(--c3);border:none;cursor:pointer;font-size:1.1rem;color:var(--txt2);transition:all .18s}
+.qbtn:hover{background:var(--acc);color:#fff}
+.qnum{width:52px;height:38px;text-align:center;border:none;border-left:1px solid var(--brd);border-right:1px solid var(--brd);font-family:'Plus Jakarta Sans',sans-serif;font-size:.95rem;font-weight:700;color:var(--wht);background:var(--c2)}
+.act-btns{display:flex;gap:10px}
+.abtn{flex:1;padding:13px;border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;border:none;transition:all .22s;text-align:center}
+.abtn-out{background:var(--c3);color:var(--txt2);border:1px solid var(--brd)}
+.abtn-out:hover{border-color:var(--acc);color:var(--acc)}
+.abtn-acc{background:var(--acc);color:#fff}
+.abtn-acc:hover{background:#e55a20;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,43,.35)}
+footer{background:var(--c1);border-top:1px solid var(--brd);padding:20px 24px;text-align:center}
+footer p{color:var(--txt3);font-size:.82rem}footer a{color:var(--acc);text-decoration:none}
+.wa{position:fixed;bottom:24px;right:24px;z-index:800;width:54px;height:54px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:1.55rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:wap 2.5s ease-in-out infinite}
+@keyframes wap{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 32px rgba(37,211,102,.7)}}
+.toast{position:fixed;top:16px;right:16px;z-index:9999;background:var(--c3);color:var(--wht);padding:12px 18px;border-radius:var(--r12);font-size:.85rem;font-weight:600;border-left:3px solid var(--acc);box-shadow:var(--sh);animation:tin .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@media(max-width:900px){.pd{grid-template-columns:1fr;padding:20px}}
+@media(max-width:640px){.nav-links a:not(.nav-cta){display:none}.trust-pills{grid-template-columns:1fr}.act-btns{flex-direction:column}.main-img{height:240px;font-size:7rem}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="logo"><div class="logo-sq">SJ</div><div class="logo-name">SJ Corporation<small>Packing Solutions</small></div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="products.html">Products</a>
+      <a href="cart.html" class="nav-cta">🛒 Cart <span class="nav-badge" id="cc">0</span></a>
+    </div>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="index.html">Home</a> / <a href="products.html">Products</a> / <span id="bc">Product</span></div>
+<main>
+  <div class="pd">
+    <div class="pd-left">
+      <div class="main-img" id="pimg"></div>
+      <div class="trust-pills">
+        <div class="pill">🚚 Free delivery on ₹500+</div>
+        <div class="pill">✅ Quality guaranteed</div>
+        <div class="pill">💰 Bulk discounts</div>
+        <div class="pill">🔄 Easy returns</div>
+      </div>
+    </div>
+    <div class="pd-right">
+      <div class="pd-cat" id="pcat"></div>
+      <h1 class="pd-title" id="ptitle">Loading...</h1>
+      <p class="pd-desc" id="pdesc"></p>
+      <div class="price-box">
+        <div class="price-row">
+          <span class="bulk-p" id="pbulk">₹0</span>
+          <span class="orig-p" id="pmrp">₹0</span>
+          <span class="save-tag" id="psave">Save 0%</span>
+        </div>
+        <div class="p-note">Bulk price shown — order more, save more</div>
+      </div>
+      <div class="specs-box">
+        <div class="specs-hd">📋 Specifications</div>
+        <ul class="specs-list" id="pspecs"></ul>
+      </div>
+      <div class="bulk-box">
+        <div class="bulk-hd">💰 Bulk Pricing Tiers</div>
+        <table><thead><tr><th>Quantity</th><th>Price / Unit</th><th>You Save</th></tr></thead><tbody id="ptiers"></tbody></table>
+      </div>
+      <div class="qty-wrap">
+        <span class="qty-lbl">Quantity:</span>
+        <div class="qty-ctrl">
+          <button class="qbtn" onclick="changeQty(-1)">−</button>
+          <input type="number" class="qnum" id="qty" value="1" min="1" readonly>
+          <button class="qbtn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+      <div class="act-btns">
+        <button class="abtn abtn-out" onclick="addToCart()">🛒 Add to Cart</button>
+        <button class="abtn abtn-acc" onclick="buyNow()">⚡ Buy Now</button>
+      </div>
+    </div>
+  </div>
+</main>
+<footer><p>© 2026 <strong><a href="index.html">SJ Corporation</a></strong> &nbsp;|&nbsp; jayendra.jsingh@gmail.com &nbsp;|&nbsp; +91 9638988803</p></footer>
+<a href="https://wa.me/919638988803" class="wa" target="_blank">💬</a>
+<script>
+const DB={
+  'tape-48x65-clear':{name:'BOPP Adhesive Tape 48mm × 65m (Clear)',cat:'Adhesive Tapes',mrp:50,icon:'📦',img:'',desc:'High-strength BOPP tape for carton sealing and general packaging. Excellent adhesion and durability.',specs:['Width: 48 mm','Length: 65 m','Adhesive: Acrylic based','Color: Transparent','Material: BOPP film','High tensile strength'],tiers:[{min:1,max:9,p:50,s:0},{min:10,max:49,p:45,s:10},{min:50,max:null,p:40,s:20}]},
+  'tape-48x65-brown':{name:'BOPP Adhesive Tape 48mm × 65m (Brown)',cat:'Adhesive Tapes',mrp:50,icon:'📦',img:'',desc:'Brown BOPP tape for strong and secure carton sealing.',specs:['Width: 48 mm','Length: 65 m','Adhesive: Acrylic based','Color: Brown','Material: BOPP film'],tiers:[{min:1,max:9,p:50,s:0},{min:10,max:49,p:45,s:10},{min:50,max:null,p:40,s:20}]},
+  'tape-72x65':{name:'BOPP Adhesive Tape 72mm × 65m',cat:'Adhesive Tapes',mrp:75,icon:'📦',img:'',desc:'Extra wide BOPP tape for heavy-duty packing and large cartons.',specs:['Width: 72 mm','Length: 65 m','Adhesive: Acrylic based','Color: Transparent','Material: BOPP film'],tiers:[{min:1,max:9,p:75,s:0},{min:10,max:49,p:70,s:7},{min:50,max:null,p:65,s:13}]},
+  'bubble-1m-100m':{name:'Bubble Wrap 1m × 100m',cat:'Bubble Wraps',mrp:150,icon:'🫧',img:'',desc:'Premium protective bubble wrap for fragile items. Excellent cushioning and shock absorption.',specs:['Width: 1 m','Length: 100 m','Bubble size: 10 mm','Material: Polyethylene','Recyclable'],tiers:[{min:1,max:4,p:150,s:0},{min:5,max:19,p:140,s:7},{min:20,max:null,p:130,s:13}]},
+  'bubble-wrap-small':{name:'Bubble Wrap 0.5m × 50m',cat:'Bubble Wraps',mrp:80,icon:'🫧',img:'',desc:'Compact bubble wrap roll for small and delicate items. Great for e-commerce.',specs:['Width: 0.5 m','Length: 50 m','Bubble size: 10 mm','Material: Polyethylene','Recyclable'],tiers:[{min:1,max:9,p:80,s:0},{min:10,max:24,p:75,s:6},{min:25,max:null,p:70,s:13}]},
+  'stretch-500-23':{name:'Stretch Film 500mm × 23µ',cat:'Stretch Films',mrp:220,icon:'📏',img:'',desc:'High-clarity stretch film for pallet wrapping and securing loads during transport.',specs:['Width: 500 mm','Thickness: 23 microns','Material: LLDPE','Transparency: High','Core: 3 inch'],tiers:[{min:1,max:9,p:220,s:0},{min:10,max:49,p:205,s:7},{min:50,max:null,p:190,s:14}]},
+  'stretch-300-20':{name:'Stretch Film 300mm × 20µ',cat:'Stretch Films',mrp:150,icon:'📏',img:'',desc:'Standard stretch film for general wrapping and bundling.',specs:['Width: 300 mm','Thickness: 20 microns','Material: LLDPE','Transparency: High','Core: 3 inch'],tiers:[{min:1,max:9,p:150,s:0},{min:10,max:49,p:142,s:5},{min:50,max:null,p:135,s:10}]},
+  'carton-3ply-10x8x6':{name:'Carton Box 3-ply 10×8×6 in',cat:'Carton Packing Materials',mrp:18,icon:'📫',img:'',desc:'Lightweight 3-ply corrugated carton for small shipments and e-commerce packaging.',specs:['Construction: 3-ply','Dimensions: 10×8×6 inches','Material: Corrugated board','Max load: 8 kg','Color: Brown kraft'],tiers:[{min:1,max:49,p:18,s:0},{min:50,max:199,p:16,s:11},{min:200,max:null,p:15,s:17}]},
+  'carton-5ply-12x10x8':{name:'Carton Box 5-ply 12×10×8 in',cat:'Carton Packing Materials',mrp:25,icon:'📫',img:'',desc:'Durable 5-ply corrugated carton for medium to heavy items and commercial shipments.',specs:['Construction: 5-ply','Dimensions: 12×10×8 inches','Material: Corrugated board','Max load: 15 kg','Color: Brown kraft'],tiers:[{min:1,max:49,p:25,s:0},{min:50,max:199,p:22,s:12},{min:200,max:null,p:20,s:20}]},
+  'carton-7ply-18x12x10':{name:'Carton Box 7-ply 18×12×10 in',cat:'Carton Packing Materials',mrp:45,icon:'📫',img:'',desc:'Heavy-duty 7-ply carton for large industrial shipments requiring maximum protection.',specs:['Construction: 7-ply','Dimensions: 18×12×10 inches','Material: Corrugated board','Max load: 30 kg','Color: Brown kraft'],tiers:[{min:1,max:49,p:45,s:0},{min:50,max:199,p:41,s:9},{min:200,max:null,p:38,s:16}]}
+};
+let cart=JSON.parse(localStorage.getItem('sjcart'))||[];
+let pid='',prod=null;
+function sync(){document.getElementById('cc').textContent=cart.reduce((s,i)=>s+i.qty,0)}
+function changeQty(d){const el=document.getElementById('qty');el.value=Math.max(1,parseInt(el.value)+d)}
+function toast(m){const t=document.createElement('div');t.className='toast';t.textContent=m;document.body.appendChild(t);setTimeout(()=>t.remove(),2400)}
+function addToCart(){
+  const qty=parseInt(document.getElementById('qty').value);
+  const ex=cart.find(x=>x.id===pid);
+  const price=prod.tiers[prod.tiers.length-1].p;
+  if(ex)ex.qty+=qty;else cart.push({id:pid,name:prod.name,price,qty,icon:prod.icon,img:prod.img||''});
+  localStorage.setItem('sjcart',JSON.stringify(cart));sync();toast(`Added ${qty} item(s) to cart ✓`);
+}
+function buyNow(){addToCart();setTimeout(()=>location.href='cart.html',350)}
+function load(){
+  pid=new URLSearchParams(location.search).get('id')||'tape-48x65-clear';
+  prod=DB[pid];if(!prod){location.href='products.html';return}
+  document.title=prod.name+' — SJ Corporation';
+  document.getElementById('bc').textContent=prod.name;
+  const imgEl=document.getElementById('pimg');
+  if(prod.img){const i=document.createElement('img');i.src=prod.img;i.alt=prod.name;imgEl.appendChild(i);}
+  else imgEl.textContent=prod.icon;
+  document.getElementById('pcat').textContent=prod.cat;
+  document.getElementById('ptitle').textContent=prod.name;
+  document.getElementById('pdesc').textContent=prod.desc;
+  const bulk=prod.tiers[prod.tiers.length-1].p;
+  const pct=Math.round((prod.mrp-bulk)/prod.mrp*100);
+  document.getElementById('pbulk').textContent='₹'+bulk;
+  document.getElementById('pmrp').textContent='₹'+prod.mrp;
+  document.getElementById('psave').textContent='Save up to '+pct+'%';
+  document.getElementById('pspecs').innerHTML=prod.specs.map(s=>`<li>${s}</li>`).join('');
+  const last=prod.tiers.length-1;
+  document.getElementById('ptiers').innerHTML=prod.tiers.map((t,i)=>`<tr class="${i===last?'best-row':''}"><td>${t.max?t.min+'–'+t.max:t.min+'+'}</td><td>₹${t.p}</td><td>${t.s?t.s+'% off':'—'}</td></tr>`).join('');
+  sync();
+}
+load();
+</script>
+</body>
+</html>

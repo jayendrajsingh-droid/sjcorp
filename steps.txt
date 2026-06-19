@@ -1,0 +1,514 @@
+# SJ Corporation Website — Complete Guide
+
+---
+
+## PART 1 — How to Add Your Own Product Photos
+
+### Step 1 — Prepare your images
+
+- Take photos in **good natural light** (near a window)
+- Use a **white or plain background** — place product on a white sheet
+- Recommended size: **800 × 800 px** minimum, square format works best
+- Save as **.jpg** or **.webp** (smaller file size, faster loading)
+- Name files clearly: `tape-clear.jpg`, `bubble-wrap-large.jpg`, etc.
+
+---
+
+### Step 2 — Create an `images` folder
+
+Inside your website folder (where your HTML files are), create a folder named `images`:
+
+```
+sjcorp/
+  ├── index.html
+  ├── products.html
+  ├── product.html
+  ├── cart.html
+  └── images/
+       ├── tape-clear.jpg
+       ├── tape-brown.jpg
+       ├── bubble-large.jpg
+       ├── bubble-small.jpg
+       ├── stretch-500.jpg
+       ├── stretch-300.jpg
+       ├── carton-3ply.jpg
+       ├── carton-5ply.jpg
+       ├── carton-7ply.jpg
+       └── logo.png
+```
+
+---
+
+### Step 3 — Add images to product.html
+
+Open `product.html` in any text editor (Notepad, VS Code, etc.)
+
+Find the `DB` object near the bottom. Each product has an `img:''` field. Add your image path there:
+
+**Before:**
+```js
+'tape-48x65-clear': {
+  name: 'BOPP Adhesive Tape 48mm × 65m (Clear)',
+  img: '',
+  ...
+}
+```
+
+**After:**
+```js
+'tape-48x65-clear': {
+  name: 'BOPP Adhesive Tape 48mm × 65m (Clear)',
+  img: 'images/tape-clear.jpg',
+  ...
+}
+```
+
+Repeat for every product. The image will automatically show on the product detail page.
+
+---
+
+### Step 4 — Add images to products.html and index.html
+
+In both files, find the product data arrays (look for `icon: '📦'`). Add an `img` field next to each icon:
+
+```js
+{ id: 'tape-48x65-clear', name: '...', img: 'images/tape-clear.jpg', icon: '📦', ... }
+```
+
+Then find where the product card HTML is built (look for `p-thumb`). Change:
+
+```html
+<div class="p-thumb">${p.icon}</div>
+```
+
+To:
+
+```html
+<div class="p-thumb">
+  ${p.img
+    ? `<img src="${p.img}" alt="${p.name}" style="width:100%;height:100%;object-fit:cover">`
+    : p.icon
+  }
+</div>
+```
+
+---
+
+### Step 5 — Add your company logo
+
+Replace the `SJ` text logo box with your actual logo image. In all 4 HTML files, find:
+
+```html
+<div class="logo-box">SJ</div>
+```
+
+Replace with:
+
+```html
+<img src="images/logo.png" alt="SJ Corporation" style="height:36px;border-radius:9px">
+```
+
+---
+
+---
+
+## PART 2 — How to Launch & Host Your Website
+
+---
+
+### Option A — FREE Hosting (Best for starting out)
+
+#### Netlify (Recommended — zero cost, zero config)
+
+1. Go to **https://netlify.com** → Sign up free
+2. Drag and drop your entire `sjcorp` folder onto the Netlify dashboard
+3. Your site goes live instantly at a URL like `https://sjcorp.netlify.app`
+4. To get a custom domain like `www.sjcorporation.in`:
+   - Buy domain from **GoDaddy** or **BigRock** (~₹800/year for `.in`)
+   - In Netlify → Domain Settings → Add custom domain
+   - Follow their DNS instructions (takes 1–24 hours to go live)
+
+#### GitHub Pages (also free)
+
+1. Create account at **https://github.com**
+2. New repository → name it `sjcorp-website`
+3. Upload all your files
+4. Settings → Pages → Source: main branch
+5. Live at `https://yourusername.github.io/sjcorp-website`
+
+---
+
+### Option B — PAID Hosting (For professional use with backend)
+
+#### Hostinger (Best value in India — ~₹200/month)
+
+1. Go to **https://hostinger.in**
+2. Buy **Business Web Hosting** plan
+3. You get: cPanel, PHP, MySQL database, SSL certificate, email hosting
+4. Upload files via **File Manager** or **FTP** (FileZilla app)
+5. Connect your domain in cPanel
+
+#### AWS / Google Cloud (Enterprise level)
+
+- Use if you expect very high traffic
+- More complex setup, hire a developer
+
+---
+
+### Option C — Add a REAL BACKEND (Contact Form + Order Emails)
+
+This requires a server. Here are two approaches:
+
+---
+
+#### Approach 1 — No-code backend with Formspree (FREE)
+
+For the contact/quote form:
+
+1. Go to **https://formspree.io** → Sign up free
+2. Create a new form → copy your form endpoint URL
+3. In your HTML, add a contact section:
+
+```html
+<form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+  <input type="text" name="name" placeholder="Your Name" required>
+  <input type="email" name="email" placeholder="Email" required>
+  <input type="tel" name="phone" placeholder="Phone">
+  <textarea name="message" placeholder="Your message"></textarea>
+  <button type="submit">Send Message</button>
+</form>
+```
+
+4. Every submission sends directly to `jayendra.jsingh@gmail.com`
+
+---
+
+#### Approach 2 — Node.js Backend (Full backend support)
+
+Install **Node.js** from https://nodejs.org
+
+Create a file `server.js` in your project:
+
+```js
+const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+
+const app = express();
+app.use(express.json());
+app.use(cors());
+app.use(express.static('.')); // serve your HTML files
+
+// Email transporter — use Gmail
+const transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'jayendra.jsingh@gmail.com',
+    pass: 'YOUR_APP_PASSWORD'   // Gmail App Password (not your login password)
+  }
+});
+
+// Order endpoint — called when customer places order
+app.post('/api/order', async (req, res) => {
+  const { name, phone, email, address, items, total } = req.body;
+
+  const itemList = items.map(i =>
+    `• ${i.name} × ${i.qty} = ₹${(i.price * i.qty).toLocaleString('en-IN')}`
+  ).join('\n');
+
+  const mailOptions = {
+    from: 'jayendra.jsingh@gmail.com',
+    to: 'jayendra.jsingh@gmail.com',
+    subject: `New Order from ${name} — ₹${total}`,
+    text: `
+NEW ORDER — SJ Corporation
+===========================
+Customer: ${name}
+Phone: ${phone}
+Email: ${email || 'Not provided'}
+Address: ${address}
+
+ORDER ITEMS:
+${itemList}
+
+TOTAL: ₹${total}
+    `
+  };
+
+  await transporter.sendMail(mailOptions);
+  res.json({ success: true });
+});
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  const { name, phone, message } = req.body;
+  await transporter.sendMail({
+    from: 'jayendra.jsingh@gmail.com',
+    to: 'jayendra.jsingh@gmail.com',
+    subject: `Website Enquiry from ${name}`,
+    text: `Name: ${name}\nPhone: ${phone}\nMessage: ${message}`
+  });
+  res.json({ success: true });
+});
+
+app.listen(3000, () => console.log('SJ Corporation server running on port 3000'));
+```
+
+Install and run:
+
+```bash
+npm init -y
+npm install express nodemailer cors
+node server.js
+```
+
+Open browser → `http://localhost:3000` → your site runs with backend
+
+---
+
+#### Approach 3 — Deploy Node.js backend FREE on Railway
+
+1. Go to **https://railway.app** → Sign up with GitHub
+2. New Project → Deploy from GitHub repo
+3. Add your `server.js` and `package.json`
+4. Railway gives you a live URL like `https://sjcorp.up.railway.app`
+5. Set environment variables for your Gmail password in Railway dashboard
+
+---
+
+### Gmail App Password (required for nodemailer)
+
+1. Go to your Google Account → Security
+2. Enable **2-Step Verification**
+3. Search "App Passwords" → Generate one for "Mail"
+4. Copy the 16-character password → use it in `server.js`
+
+---
+
+---
+
+## PART 3 — Full Launch Checklist
+
+Before sharing your website with clients, verify:
+
+- [ ] All product photos added and loading correctly
+- [ ] WhatsApp number is correct (+91 9638988803)
+- [ ] Email address is correct (jayendra.jsingh@gmail.com)
+- [ ] Cart adds items and totals are correct
+- [ ] Checkout sends WhatsApp message with full order details
+- [ ] Website looks good on mobile (open on your phone)
+- [ ] SSL certificate is active (URL shows `https://` not `http://`)
+- [ ] Custom domain connected (e.g. `www.sjcorporation.in`)
+- [ ] Test on Chrome, Firefox, and Safari
+
+---
+
+## PART 4 — Recommended Tools (All Free)
+
+| Tool | Purpose | Link |
+|------|---------|-------|
+| VS Code | Edit HTML files | code.visualstudio.com |
+| Netlify | Free hosting | netlify.com |
+| Formspree | Contact form emails | formspree.io |
+| Cloudinary | Host product images | cloudinary.com |
+| GoDaddy / BigRock | Buy `.in` domain | godaddy.in |
+| Remove.bg | Remove photo background | remove.bg |
+| Squoosh | Compress images | squoosh.app |
+| Railway | Deploy Node.js backend | railway.app |
+
+---
+
+## PART 5 — Quick Start (Fastest Path to Live)
+
+**Do this today (30 minutes):**
+
+1. Take photos of your products
+2. Compress them at squoosh.app
+3. Add to `images/` folder
+4. Update `img:` fields in product.html
+5. Go to netlify.com → drag & drop folder → site is LIVE
+6. Share the Netlify URL with clients immediately
+
+**Do this this week:**
+- Buy `sjcorporation.in` domain (~₹800)
+- Connect to Netlify
+- Set up Formspree contact form
+- Test on mobile
+
+---
+
+*SJ Corporation Website — Built for professional client presentation*
+
+
+# SJ Corporation — Website + Backend
+
+## Folder Structure
+
+```
+sjcorp/
+├── index.html          ← Homepage (with contact form)
+├── products.html       ← Product catalogue
+├── product.html        ← Single product detail
+├── cart.html           ← Cart + Checkout (calls backend API)
+├── admin.html          ← Admin dashboard (orders + enquiries)
+├── images/             ← Put your product photos here
+│   └── (your photos)
+└── backend/
+    ├── server.js       ← Node.js Express server
+    ├── package.json    ← Dependencies
+    ├── .env.example    ← Copy this to .env and fill in
+    └── data/           ← Auto-created — stores orders.json + contacts.json
+```
+
+---
+
+## STEP 1 — Install Node.js
+
+Download and install from: https://nodejs.org  
+Choose the **LTS** version. After installing, open a terminal and verify:
+
+```bash
+node --version   # should show v18 or higher
+npm --version
+```
+
+---
+
+## STEP 2 — Set up your environment file
+
+```bash
+cd sjcorp/backend
+copy .env.example .env        # Windows
+# OR
+cp .env.example .env          # Mac / Linux
+```
+
+Open `.env` in Notepad or VS Code and fill in:
+
+```
+PORT=3000
+GMAIL_USER=jayendra.jsingh@gmail.com
+GMAIL_APP_PASSWORD=xxxx xxxx xxxx xxxx
+NOTIFY_EMAIL=jayendra.jsingh@gmail.com
+ADMIN_PASSWORD=choose_a_strong_password_here
+FRONTEND_URL=*
+```
+
+### How to get your Gmail App Password:
+1. Go to https://myaccount.google.com/security
+2. Make sure **2-Step Verification** is ON
+3. Search for **"App passwords"** at the top
+4. Select App → Mail, Device → Windows/Mac → Generate
+5. Copy the 16-character code into `.env` as `GMAIL_APP_PASSWORD`
+
+---
+
+## STEP 3 — Install dependencies and run
+
+```bash
+cd sjcorp/backend
+npm install
+npm start
+```
+
+You will see:
+```
+  ╔══════════════════════════════════════════╗
+  ║   SJ Corporation — Backend Server        ║
+  ║   Running on http://localhost:3000        ║
+  ║   Admin: http://localhost:3000/admin.html ║
+  ╚══════════════════════════════════════════╝
+```
+
+Open your browser: **http://localhost:3000**  
+Your full website is now live with backend!
+
+---
+
+## STEP 4 — Test everything
+
+1. **Homepage** → http://localhost:3000/index.html  
+   Fill the contact form → you should receive an email
+
+2. **Products** → http://localhost:3000/products.html  
+   Add items to cart
+
+3. **Cart** → http://localhost:3000/cart.html  
+   Checkout → fills form → places order → you get an email
+
+4. **Admin** → http://localhost:3000/admin.html  
+   Login with your `ADMIN_PASSWORD` from `.env`  
+   → See all orders and enquiries  
+   → Update order status (New → Confirmed → Shipped → Delivered)  
+   → Call customer directly from dashboard  
+   → Delete old orders
+
+---
+
+## STEP 5 — Deploy online (Free with Railway)
+
+1. Go to https://railway.app → Sign up with GitHub
+2. Click **New Project** → **Deploy from GitHub repo**
+3. Upload your `sjcorp` folder to a GitHub repo first:
+   ```bash
+   cd sjcorp
+   git init
+   git add .
+   git commit -m "SJ Corporation website"
+   # Create repo on github.com, then:
+   git remote add origin https://github.com/YOUR_USERNAME/sjcorp.git
+   git push -u origin main
+   ```
+4. In Railway → select your repo → it auto-detects Node.js
+5. In Railway → **Variables** tab → add all your `.env` values
+6. Railway gives you a URL like `https://sjcorp-production.up.railway.app`
+7. Your full website + backend is live!
+
+---
+
+## API Endpoints (reference)
+
+| Method | URL | Description |
+|--------|-----|-------------|
+| POST | `/api/order` | Place a new order |
+| POST | `/api/contact` | Send an enquiry |
+| GET | `/api/admin/orders?pass=XXX` | Get all orders |
+| GET | `/api/admin/contacts?pass=XXX` | Get all enquiries |
+| PATCH | `/api/admin/orders/:id?pass=XXX` | Update order status |
+| DELETE | `/api/admin/orders/:id?pass=XXX` | Delete an order |
+| GET | `/api/health` | Server health check |
+
+---
+
+## Adding Product Photos
+
+1. Take clear photos of your products (white background preferred)
+2. Compress at https://squoosh.app (save as `.jpg`, under 200KB)
+3. Put them in the `sjcorp/images/` folder
+4. In `product.html`, find the product in the `DB` object and set `img`:
+   ```js
+   'tape-48x65-clear': {
+     img: 'images/tape-clear.jpg',
+     ...
+   }
+   ```
+5. Do the same in `products.html` and `index.html` for the product grid
+
+---
+
+## Quick Commands
+
+```bash
+# Start server (normal)
+npm start
+
+# Start server with auto-restart on file changes (development)
+npm run dev
+
+# Check server is working
+curl http://localhost:3000/api/health
+```
+
+---
+
+*SJ Corporation — Built for professional client presentation*

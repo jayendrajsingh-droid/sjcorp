@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cart — SJ Corporation</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{--c1:#0f1923;--c2:#162130;--c3:#1e2f42;--acc:#ff6b2b;--txt:#e2eaf5;--txt2:#8ba3c0;--txt3:#4d6a87;--wht:#fff;--brd:rgba(255,255,255,.07);--grn:#22c55e;--red:#ef4444;--r8:8px;--r12:12px;--r16:16px;--sh:0 8px 32px rgba(0,0,0,.3)}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--c1);color:var(--txt);overflow-x:hidden;line-height:1.6}
+nav{position:sticky;top:0;z-index:999;height:64px;background:rgba(15,25,35,.93);backdrop-filter:blur(20px);border-bottom:1px solid var(--brd);display:flex;align-items:center}
+.nav-in{max-width:1180px;margin:0 auto;padding:0 24px;width:100%;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-sq{width:38px;height:38px;background:var(--acc);border-radius:10px;display:grid;place-items:center;font-weight:800;font-size:.9rem;color:#fff}
+.logo-name{font-size:1.05rem;font-weight:700;color:var(--wht)}
+.logo-name small{display:block;font-size:.62rem;font-weight:500;color:var(--txt2);letter-spacing:.05em;text-transform:uppercase;margin-top:-2px}
+.nav-links{display:flex;align-items:center;gap:4px}
+.nav-links a{text-decoration:none;color:var(--txt2);font-size:.875rem;font-weight:500;padding:6px 14px;border-radius:var(--r8);transition:all .18s}
+.nav-links a:hover{color:var(--wht);background:rgba(255,255,255,.06)}
+.nav-cta{background:var(--acc)!important;color:#fff!important;font-weight:700!important;display:inline-flex;align-items:center;gap:6px}
+.nav-cta:hover{background:#e55a20!important}
+.page-top{background:linear-gradient(135deg,var(--c2),var(--c3));border-bottom:1px solid var(--brd);padding:40px 24px 32px;position:relative;overflow:hidden}
+.page-top::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 70% 50%,rgba(255,107,43,.08),transparent 60%)}
+.page-top-in{max-width:1180px;margin:0 auto;position:relative}
+.page-top h1{font-size:2.2rem;font-weight:800;color:var(--wht);letter-spacing:-.04em}
+.page-top h1 span{color:var(--acc)}
+main{max-width:1180px;margin:28px auto;padding:0 24px 64px}
+.cart-layout{display:grid;grid-template-columns:1fr 360px;gap:20px}
+.cart-items{display:flex;flex-direction:column;gap:12px}
+.c-item{background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16);padding:18px;display:grid;grid-template-columns:72px 1fr auto;gap:14px;align-items:center;transition:border-color .2s}
+.c-item:hover{border-color:rgba(255,107,43,.2)}
+.c-thumb{width:72px;height:72px;background:var(--c3);border-radius:var(--r12);border:1px solid var(--brd);display:grid;place-items:center;font-size:2.2rem;overflow:hidden}
+.c-thumb img{width:100%;height:100%;object-fit:cover}
+.c-name{font-size:.9rem;font-weight:700;color:var(--wht);margin-bottom:4px;line-height:1.3}
+.c-price{font-size:1.05rem;font-weight:800;color:var(--acc);letter-spacing:-.03em}
+.c-controls{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.qty-ctrl{display:flex;align-items:center;border:1px solid var(--brd);border-radius:var(--r8);overflow:hidden}
+.qbtn{width:30px;height:30px;background:var(--c3);border:none;cursor:pointer;font-size:.95rem;color:var(--txt2);transition:all .18s}
+.qbtn:hover{background:var(--acc);color:#fff}
+.qnum{width:38px;height:30px;text-align:center;border:none;border-left:1px solid var(--brd);border-right:1px solid var(--brd);font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:700;color:var(--wht);background:var(--c2)}
+.rm-btn{background:none;border:1px solid rgba(239,68,68,.25);color:var(--red);font-family:'Plus Jakarta Sans',sans-serif;font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .18s}
+.rm-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.cart-summary{background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16);padding:24px;position:sticky;top:80px;height:fit-content}
+.sum-title{font-size:1rem;font-weight:800;color:var(--wht);padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--brd)}
+.sum-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:.88rem}
+.sum-lbl{color:var(--txt2)}
+.sum-val{color:var(--txt);font-weight:600}
+.disc-tag{background:rgba(255,107,43,.12);color:var(--acc);font-size:.67rem;font-weight:800;padding:2px 7px;border-radius:10px;margin-left:5px}
+.free-val{color:var(--grn);font-weight:700}
+.sum-total{border-top:1px solid var(--brd);padding-top:12px;margin-top:4px;display:flex;justify-content:space-between;align-items:center}
+.sum-total-lbl{font-size:.95rem;font-weight:800;color:var(--wht)}
+.sum-total-amt{font-size:1.7rem;font-weight:800;color:var(--acc);letter-spacing:-.04em}
+.free-ship-bar{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.18);border-radius:var(--r8);padding:9px 12px;margin-bottom:12px;font-size:.78rem;color:var(--grn);font-weight:600}
+.checkout-btn{width:100%;padding:14px;margin-top:14px;background:var(--acc);color:#fff;border:none;border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:8px}
+.checkout-btn:hover{background:#e55a20;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,43,.35)}
+.checkout-btn:disabled{background:var(--c3);color:var(--txt2);cursor:not-allowed;transform:none;box-shadow:none}
+.continue-link{display:block;text-align:center;margin-top:10px;color:var(--txt3);font-size:.82rem;text-decoration:none;transition:color .18s}
+.continue-link:hover{color:var(--acc)}
+.clear-btn{width:100%;margin-top:8px;padding:9px;background:none;border:1px solid rgba(239,68,68,.2);color:var(--red);border-radius:var(--r8);font-family:'Plus Jakarta Sans',sans-serif;font-size:.82rem;font-weight:700;cursor:pointer;transition:all .18s}
+.clear-btn:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.empty-state{text-align:center;padding:72px 24px;background:var(--c2);border:1px solid var(--brd);border-radius:var(--r16)}
+.empty-ico{font-size:5rem;margin-bottom:16px;line-height:1}
+.empty-state h2{font-size:1.5rem;font-weight:800;color:var(--wht);letter-spacing:-.04em;margin-bottom:8px}
+.empty-state p{color:var(--txt2);margin-bottom:24px}
+.btn-shop{display:inline-flex;align-items:center;gap:8px;padding:13px 24px;background:var(--acc);color:#fff;border-radius:var(--r12);text-decoration:none;font-weight:700;font-size:.9rem;transition:all .22s}
+.btn-shop:hover{background:#e55a20;transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,43,.35)}
+/* MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:9000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .25s}
+.modal-overlay.show{opacity:1;pointer-events:all}
+.modal{background:var(--c2);border:1px solid var(--brd);border-radius:20px;padding:32px;width:100%;max-width:460px;position:relative;transform:translateY(20px);transition:transform .25s;max-height:92vh;overflow-y:auto}
+.modal-overlay.show .modal{transform:none}
+.modal-close{position:absolute;top:16px;right:16px;background:var(--c3);border:1px solid var(--brd);border-radius:8px;width:32px;height:32px;display:grid;place-items:center;cursor:pointer;color:var(--txt2);font-size:1rem;transition:all .18s}
+.modal-close:hover{background:var(--red);color:#fff;border-color:var(--red)}
+.modal h3{font-size:1.3rem;font-weight:800;color:var(--wht);margin-bottom:6px}
+.modal-sub{font-size:.87rem;color:var(--txt2);margin-bottom:24px;line-height:1.6}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:.73rem;font-weight:800;color:var(--txt2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px}
+.fg input{width:100%;background:var(--c3);border:1px solid var(--brd);border-radius:var(--r8);padding:10px 14px;color:var(--wht);font-family:'Plus Jakarta Sans',sans-serif;font-size:.9rem;outline:none;transition:border-color .18s}
+.fg input:focus{border-color:var(--acc)}
+.fg input::placeholder{color:var(--txt3)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.err-msg{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:var(--r8);padding:10px 14px;font-size:.83rem;color:var(--red);margin-top:10px;display:none}
+.modal-submit{width:100%;padding:13px;background:var(--acc);color:#fff;border:none;border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;font-size:.92rem;font-weight:800;cursor:pointer;margin-top:8px;transition:all .22s;display:flex;align-items:center;justify-content:center;gap:8px}
+.modal-submit:hover{background:#e55a20}
+.modal-submit:disabled{background:var(--c3);color:var(--txt2);cursor:not-allowed}
+.divider{display:flex;align-items:center;gap:10px;margin:12px 0;color:var(--txt3);font-size:.78rem}
+.divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--brd)}
+.modal-wa{width:100%;padding:11px;background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:var(--grn);border-radius:var(--r12);font-family:'Plus Jakarta Sans',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .2s}
+.modal-wa:hover{background:rgba(37,211,102,.18)}
+.success-box{text-align:center;padding:8px 0}
+.success-icon{font-size:4rem;margin-bottom:12px;display:block}
+.success-box h3{font-size:1.3rem;font-weight:800;color:var(--wht);margin-bottom:8px}
+.success-box p{color:var(--txt2);font-size:.88rem;line-height:1.6;margin-bottom:20px}
+.order-id-tag{display:inline-block;background:rgba(255,107,43,.12);border:1px solid rgba(255,107,43,.25);color:var(--acc);font-size:.82rem;font-weight:800;padding:4px 12px;border-radius:20px;margin-bottom:16px;letter-spacing:.04em}
+.spin{width:18px;height:18px;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;animation:sp .7s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+footer{background:var(--c1);border-top:1px solid var(--brd);padding:20px 24px;text-align:center}
+footer p{color:var(--txt3);font-size:.82rem}footer a{color:var(--acc);text-decoration:none}
+.wa{position:fixed;bottom:24px;right:24px;z-index:800;width:54px;height:54px;border-radius:50%;background:#25d366;display:grid;place-items:center;font-size:1.55rem;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.4);animation:wap 2.5s ease-in-out infinite}
+@keyframes wap{0%,100%{box-shadow:0 4px 20px rgba(37,211,102,.4)}50%{box-shadow:0 4px 32px rgba(37,211,102,.7)}}
+.toast{position:fixed;top:16px;right:16px;z-index:9999;background:var(--c3);color:var(--wht);padding:12px 18px;border-radius:var(--r12);font-size:.85rem;font-weight:600;border-left:3px solid var(--acc);box-shadow:var(--sh);animation:tin .25s cubic-bezier(.34,1.56,.64,1)}
+@keyframes tin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+@media(max-width:900px){.cart-layout{grid-template-columns:1fr}.cart-summary{position:static}}
+@media(max-width:640px){.nav-links a:not(.nav-cta){display:none}.c-item{grid-template-columns:56px 1fr;gap:10px}.c-controls{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}.form-row{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <div class="nav-in">
+    <a href="index.html" class="logo"><div class="logo-sq">SJ</div><div class="logo-name">SJ Corporation<small>Packing Solutions</small></div></a>
+    <div class="nav-links">
+      <a href="index.html">Home</a><a href="products.html">Products</a>
+      <a href="cart.html" class="nav-cta">🛒 Cart</a>
+    </div>
+  </div>
+</nav>
+<div class="page-top"><div class="page-top-in"><h1>Shopping <span>Cart</span></h1></div></div>
+<main><div id="cart-root"></div></main>
+<footer><p>© 2026 <strong><a href="index.html">SJ Corporation</a></strong> &nbsp;|&nbsp; jayendra.jsingh@gmail.com &nbsp;|&nbsp; +91 9638988803</p></footer>
+<a href="https://wa.me/919638988803" class="wa" target="_blank">💬</a>
+
+<!-- CHECKOUT MODAL -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div id="modal-body">
+      <h3>Complete Your Order</h3>
+      <p class="modal-sub">Enter your details. We'll confirm your order by phone within 2 hours.</p>
+      <div class="fg"><label>Full Name *</label><input id="f-name" type="text" placeholder="Your full name"></div>
+      <div class="fg"><label>Phone Number *</label><input id="f-phone" type="tel" placeholder="+91 98765 43210"></div>
+      <div class="fg"><label>Email Address</label><input id="f-email" type="email" placeholder="you@example.com"></div>
+      <div class="fg"><label>Delivery Address *</label><input id="f-addr" type="text" placeholder="Street, Area, Landmark"></div>
+      <div class="form-row">
+        <div class="fg"><label>City</label><input id="f-city" type="text" placeholder="City"></div>
+        <div class="fg"><label>Pincode</label><input id="f-pin" type="text" placeholder="400001"></div>
+      </div>
+      <div class="err-msg" id="err-msg"></div>
+      <button class="modal-submit" id="submit-btn" onclick="submitOrder()">✅ Place Order</button>
+      <div class="divider">or</div>
+      <a id="wa-link" href="#" target="_blank" class="modal-wa">💬 Send Order via WhatsApp instead</a>
+    </div>
+  </div>
+</div>
+
+<script>
+let cart=JSON.parse(localStorage.getItem('sjcart'))||[];
+function save(){localStorage.setItem('sjcart',JSON.stringify(cart))}
+function inr(n){return '₹'+Number(n).toLocaleString('en-IN')}
+function toast(m,ok=true){const t=document.createElement('div');t.className='toast';t.textContent=m;t.style.borderLeftColor=ok?'var(--acc)':'var(--red)';document.body.appendChild(t);setTimeout(()=>t.remove(),2600)}
+
+function render(){
+  const root=document.getElementById('cart-root');
+  if(!cart.length){
+    root.innerHTML=`<div class="empty-state"><div class="empty-ico">🛒</div><h2>Your cart is empty</h2><p>Browse our premium packing materials and add items to get started.</p><a href="products.html" class="btn-shop">Browse Products →</a></div>`;
+    return;
+  }
+  let sub=0;
+  const items=cart.map(item=>{
+    const tot=item.price*item.qty;sub+=tot;
+    const thumb=item.img?`<div class="c-thumb"><img src="${item.img}" alt="${item.name}" loading="lazy"></div>`:`<div class="c-thumb">${item.icon||'📦'}</div>`;
+    return `<div class="c-item">${thumb}<div><div class="c-name">${item.name}</div><div class="c-price">${inr(item.price)} × ${item.qty} = <strong>${inr(tot)}</strong></div></div><div class="c-controls"><div class="qty-ctrl"><button class="qbtn" onclick="upd('${item.id}',-1)">−</button><span class="qnum">${item.qty}</span><button class="qbtn" onclick="upd('${item.id}',1)">+</button></div><button class="rm-btn" onclick="rm('${item.id}')">🗑 Remove</button></div></div>`;
+  }).join('');
+  const disc=Math.round(sub*.05),ship=sub>=500?0:50,total=sub-disc+ship,need=500-sub;
+  root.innerHTML=`<div class="cart-layout"><div class="cart-items">${items}</div><div class="cart-summary"><div class="sum-title">Order Summary</div>${need>0&&need<500?`<div class="free-ship-bar">Add ${inr(need)} more for FREE shipping 🚚</div>`:''}<div class="sum-row"><span class="sum-lbl">Subtotal (${cart.length} item${cart.length>1?'s':''})</span><span class="sum-val">${inr(sub)}</span></div><div class="sum-row"><span class="sum-lbl">Discount <span class="disc-tag">5% OFF</span></span><span style="color:var(--grn);font-weight:700">−${inr(disc)}</span></div><div class="sum-row"><span class="sum-lbl">Shipping</span><span class="${ship===0?'free-val':'sum-val'}">${ship===0?'FREE ✓':inr(ship)}</span></div><div class="sum-total"><span class="sum-total-lbl">Total</span><span class="sum-total-amt">${inr(total)}</span></div><button class="checkout-btn" onclick="openModal(${total})">💳 Proceed to Checkout</button><a href="products.html" class="continue-link">← Continue Shopping</a><button class="clear-btn" onclick="clearAll()">🗑 Clear Cart</button></div></div>`;
+}
+
+function upd(id,d){const i=cart.find(x=>x.id===id);if(i){i.qty=Math.max(1,i.qty+d);save();render()}}
+function rm(id){if(!confirm('Remove this item?'))return;cart=cart.filter(x=>x.id!==id);save();render();toast('Item removed')}
+function clearAll(){if(!confirm('Clear entire cart?'))return;cart=[];save();render();toast('Cart cleared')}
+
+let _total=0;
+function buildWaUrl(){
+  const name=document.getElementById('f-name')?.value||'';
+  const phone=document.getElementById('f-phone')?.value||'';
+  const addr=document.getElementById('f-addr')?.value||'';
+  let msg=`*Order — SJ Corporation*%0A%0A`;
+  if(name)msg+=`*Name:* ${name}%0A`;if(phone)msg+=`*Phone:* ${phone}%0A`;if(addr)msg+=`*Address:* ${addr}%0A`;
+  msg+=`%0A*Items:*%0A`;cart.forEach(i=>{msg+=`• ${i.name} × ${i.qty} = ${inr(i.price*i.qty)}%0A`});
+  msg+=`%0A*Total: ${inr(_total)}*`;
+  return `https://wa.me/919638988803?text=${msg}`;
+}
+function openModal(total){_total=total;document.getElementById('wa-link').href=buildWaUrl();document.getElementById('err-msg').style.display='none';document.getElementById('modal-overlay').classList.add('show')}
+function closeModal(){document.getElementById('modal-overlay').classList.remove('show')}
+document.addEventListener('input',e=>{if(['f-name','f-phone','f-addr'].includes(e.target?.id)){const wl=document.getElementById('wa-link');if(wl)wl.href=buildWaUrl()}});
+
+async function submitOrder(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const email=document.getElementById('f-email').value.trim();
+  const addr=document.getElementById('f-addr').value.trim();
+  const city=document.getElementById('f-city').value.trim();
+  const pin=document.getElementById('f-pin').value.trim();
+  const errEl=document.getElementById('err-msg');
+  const btn=document.getElementById('submit-btn');
+  errEl.style.display='none';
+  if(!name||!phone||!addr){errEl.textContent='⚠ Please fill in Name, Phone and Address.';errEl.style.display='block';return;}
+  btn.disabled=true;btn.innerHTML='<div class="spin"></div> Placing Order...';
+  try{
+    const r=await fetch('/api/order',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name,phone,email,address:addr,city,pincode:pin,items:cart,total:_total})});
+    const d=await r.json();
+    if(d.success){
+      document.getElementById('modal-body').innerHTML=`<div class="success-box"><span class="success-icon">🎉</span><div class="order-id-tag">Order ${d.orderId}</div><h3>Order Placed!</h3><p>Thank you <strong>${name}</strong>! We'll call you on <strong>${phone}</strong> within 2 hours to confirm.</p><a href="https://wa.me/919638988803?text=Hi, I placed order ${d.orderId}. Please confirm." target="_blank" class="modal-wa" style="margin-top:16px">💬 Confirm on WhatsApp</a><button onclick="closeModal();cart=[];save();render()" style="width:100%;margin-top:10px;padding:10px;background:transparent;border:1px solid var(--brd);border-radius:var(--r8);color:var(--txt2);font-family:'Plus Jakarta Sans',sans-serif;cursor:pointer;font-size:.85rem">Close &amp; Clear Cart</button></div>`;
+    }else throw new Error(d.message);
+  }catch{
+    btn.disabled=false;btn.innerHTML='✅ Place Order';
+    errEl.textContent='⚠ Server unreachable. Use WhatsApp below to place your order.';errEl.style.display='block';
+    const wl=document.getElementById('wa-link');if(wl){wl.style.fontWeight='800';wl.style.background='rgba(37,211,102,.2)';}
+  }
+}
+document.getElementById('modal-overlay').addEventListener('click',function(e){if(e.target===this)closeModal()});
+render();
+</script>
+</body>
+</html>
